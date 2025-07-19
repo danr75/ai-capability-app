@@ -1,21 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Base Colors */
+  --background: #F5F8FF;     /* Light blue background */
+  --foreground: #1F1F1F;     /* Primary text */
+  
+  /* AI Learning App Brand Colors */
+  --primary: #2158F4;        /* Primary blue - nav bar, headings */
+  --primary-foreground: #ffffff;
+  --secondary: #4F8BFF;      /* Progress bar blue */
+  --secondary-foreground: #ffffff;
+  
+  /* Semantic Colors */
+  --success: #00C48C;        /* Green - excelling, positive */
+  --success-foreground: #ffffff;
+  --warning: #FF5A5F;        /* Red - needs attention, negative */
+  --warning-foreground: #ffffff;
+  --error: #FF5A5F;          /* Red - errors, critical */
+  --error-foreground: #ffffff;
+  
+  /* Special Colors */
+  --purple: #B681FC;         /* Purple - target markers */
+  --purple-foreground: #ffffff;
+  
+  /* UI Colors */
+  --muted: #ffffff;          /* Card backgrounds */
+  --muted-foreground: #4A4A4A; /* Secondary text */
+  --border: #E0E0E0;         /* Dividers, borders, inactive */
+  --input: #ffffff;
+  --ring: #2158F4;
+  
+  /* Text Colors */
+  --text-primary: #1F1F1F;
+  --text-secondary: #4A4A4A;
 }
 
 @theme inline {
+  /* Colors */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-error: var(--error);
+  --color-error-foreground: var(--error-foreground);
+  --color-purple: var(--purple);
+  --color-purple-foreground: var(--purple-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  
+  /* Typography - Inter Font */
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Monaco, Consolas, 'Courier New', monospace;
+  
+  /* Spacing - 8px base unit */
+  --spacing-unit: 8px;
+  --spacing-section: 32px;
+  --spacing-card: 16px;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #0F1419;     /* Dark blue background */
+    --foreground: #FFFFFF;     /* White text */
+    --primary: #2158F4;        /* Keep primary blue */
+    --secondary: #4F8BFF;      /* Keep progress blue */
+    --success: #00C48C;        /* Keep success green */
+    --warning: #FF5A5F;        /* Keep warning red */
+    --purple: #B681FC;         /* Keep purple */
+    --muted: #1A1F2E;          /* Dark card backgrounds */
+    --muted-foreground: #B0B0B0; /* Light secondary text */
+    --border: #2A2F3E;         /* Dark borders */
+    --input: #1A1F2E;          /* Dark input backgrounds */
+    --text-primary: #FFFFFF;
+    --text-secondary: #B0B0B0;
   }
 }
 
