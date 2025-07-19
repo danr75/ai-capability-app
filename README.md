@@ -1,36 +1,80 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AI Capability Learning App
 
-## Getting Started
+An interactive AI-powered learning app designed for professionals to assess, track, and improve AI capabilities. Built with Next.js, TypeScript, PostgreSQL, and GPT-4 APIs.
 
-First, run the development server:
+## 🚀 Features
 
+- **6-Domain Capability Assessment** - Comprehensive AI skills evaluation
+- **Skill Tracker Dashboard** - Visual progress tracking with charts
+- **Learning Coach** - AI-powered daily drills and on-demand lessons
+- **Guided Pathways** - Structured learning modules and toolkits
+- **Progress Tracking** - Real-time capability improvement monitoring
+
+## 🛠️ Tech Stack
+
+- **Frontend**: Next.js 15, TypeScript, Tailwind CSS
+- **Backend**: Next.js API Routes, Prisma ORM
+- **Database**: PostgreSQL
+- **AI**: OpenAI GPT-4 API
+- **Auth**: Auth.js (NextAuth)
+- **Storage**: Supabase/S3
+- **Deployment**: Vercel
+
+## 🏃‍♂️ Getting Started
+
+1. **Clone and install dependencies:**
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone <repository-url>
+cd ai-capability-app
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. **Set up environment variables:**
+```bash
+cp .env.example .env.local
+# Add your database URL, OpenAI API key, etc.
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. **Run the development server:**
+```bash
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. **Open [http://localhost:3000](http://localhost:3000)**
 
-## Learn More
+## 📁 Project Structure
 
-To learn more about Next.js, take a look at the following resources:
+```
+src/
+├── app/                 # Next.js App Router
+│   ├── api/            # API route handlers
+│   ├── dashboard/      # Dashboard pages
+│   └── auth/           # Authentication pages
+├── components/         # Reusable UI components
+├── lib/               # Utility functions
+├── types/             # TypeScript type definitions
+└── styles/            # Global styles
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🚀 Deployment
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+This app is optimized for deployment on Vercel:
 
-## Deploy on Vercel
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/YOUR_USERNAME/ai-capability-app)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📝 Development Status
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- ✅ Environment Setup (Next.js, TypeScript, Tailwind)
+- ⏳ Authentication System
+- ⏳ Capability Assessment
+- ⏳ Dashboard & Tracking
+- ⏳ Learning Coach Integration
+- ⏳ Pathways & Resources
+
+## 🤝 Contributing
+
+This is an MVP in active development. Contributions welcome!
+
+## 📄 License
+
+MIT License
