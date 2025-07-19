@@ -1,8 +1,8 @@
 "use client"
 
 import { useState } from "react"
-import { signIn, getSession } from "next-auth/react"
-import { useRouter } from "next/navigation"
+import { signIn } from "next-auth/react"
+import { useRouter, useSearchParams } from "next/navigation"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -22,6 +22,8 @@ export default function SignInPage() {
   const [isGoogleLoading, setIsGoogleLoading] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const callbackUrl = searchParams.get('callbackUrl') || '/learning-coach'
 
   const validateForm = () => {
     const errors: { email?: string; password?: string } = {}
@@ -54,22 +56,26 @@ export default function SignInPage() {
         email,
         password,
         redirect: false,
+        callbackUrl: callbackUrl as string
       })
 
       if (result?.error) {
         setFormErrors({
-          general: "Invalid email or password. Please try again."
+          general: result.error === "CredentialsSignin" 
+            ? "Invalid email or password. Please try again."
+            : "An error occurred. Please try again."
         })
       } else {
-        const session = await getSession()
-        if (session) {
-          router.push("/dashboard")
-          router.refresh()
-        }
+        // Use the callback URL if available, otherwise default to /learning-coach
+        const url = result?.url ? new URL(result.url) : null
+        const targetUrl = url?.searchParams.get('callbackUrl') || '/learning-coach'
+        router.push(targetUrl)
+        router.refresh()
       }
     } catch (error) {
+      console.error('Sign in error:', error)
       setFormErrors({
-        general: "An error occurred. Please try again."
+        general: "An error occurred. Please try again later."
       })
     } finally {
       setIsLoading(false)
@@ -79,8 +85,10 @@ export default function SignInPage() {
   async function signInWithGoogle() {
     setIsGoogleLoading(true)
     try {
-      await signIn("google", { callbackUrl: "/dashboard" })
+      // Pass the callback URL to the Google sign-in
+      await signIn("google", { callbackUrl })
     } catch (error) {
+      console.error('Google sign in error:', error)
       setFormErrors({
         general: "Failed to sign in with Google. Please try again."
       })

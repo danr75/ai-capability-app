@@ -1,7 +1,9 @@
-import { NextAuthOptions } from "next-auth"
+import { NextAuthOptions, getServerSession } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 import bcrypt from "bcryptjs"
 import { prisma } from "@/lib/prisma"
+import { NextApiRequest, NextApiResponse } from "next"
+import { env } from "./env"
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -67,4 +69,11 @@ export const authOptions: NextAuthOptions = {
       return session
     },
   },
+  secret: env.NEXTAUTH_SECRET,
+}
+
+export const getAuthSession = () => getServerSession(authOptions)
+
+export const auth = async (req: NextApiRequest, res: NextApiResponse) => {
+  return await getServerSession(req, res, authOptions)
 }
