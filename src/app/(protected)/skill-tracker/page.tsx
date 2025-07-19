@@ -7,14 +7,8 @@ export default function SkillTrackerPage() {
         
         {/* Your Progress Section */}
         <section className="bg-blue-50 rounded-lg shadow-sm p-6 mb-8">
-          <div className="flex justify-between items-center mb-6">
+          <div className="mb-6">
             <h2 className="text-2xl font-semibold text-gray-900">Your Progress</h2>
-            <div className="bg-purple-100 text-purple-800 text-xs font-medium px-3 py-1 rounded-full flex items-center">
-              Target
-              <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-              </svg>
-            </div>
           </div>
           
           <div className="bg-white rounded-lg shadow-sm p-6">
@@ -27,13 +21,17 @@ export default function SkillTrackerPage() {
                 <span className="absolute -top-6 right-0 text-xs font-medium text-primary">33%</span>
               </div>
               
-              {/* Target marker */}
-              <div className="absolute top-0 left-0" style={{ left: '85%' }}>
-                <div className="relative">
-                  <svg className="w-5 h-5 text-purple-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M10 2a8 8 0 100 16 8 8 0 000-16z"></path>
-                  </svg>
-                  <div className="absolute top-5 left-1/2 transform -translate-x-1/2 h-4 w-0.5 bg-purple-600"></div>
+              {/* Target marker - positioned above the progress bar */}
+              <div className="absolute -top-12 right-0" style={{ right: '12%' }}>
+                <div className="relative flex flex-col items-center">
+                  <div className="bg-purple-200 text-purple-800 text-xs font-medium px-3 py-1 rounded-full flex items-center">
+                    Target
+                    <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </div>
+                  <div className="h-4 w-0.5 bg-purple-600 my-1"></div>
+                  <div className="w-4 h-4 rounded-full bg-purple-600"></div>
                 </div>
               </div>
             </div>
