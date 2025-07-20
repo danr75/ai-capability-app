@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export default function LearningCoachPage() {
   return (
     <div className="min-h-screen bg-gray-50">
@@ -40,26 +42,28 @@ export default function LearningCoachPage() {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {/* Data & Tech Capable Card */}
-            <div className="relative border-l-4 border-blue-500 bg-white rounded-lg shadow-sm p-4 cursor-pointer hover:shadow-md transition-shadow">
-              <div className="flex items-center mb-6">
-                <div className="bg-purple-100 p-2 rounded-full mr-3">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-purple-600" viewBox="0 0 20 20" fill="currentColor">
-                    <path d="M11 17a1 1 0 001.447.894l4-2A1 1 0 0017 15V9.236a1 1 0 00-1.447-.894l-4 2a1 1 0 00-.553.894V17zM15.211 6.276a1 1 0 000-1.788l-4.764-2.382a1 1 0 00-.894 0L4.789 4.488a1 1 0 000 1.788l4.764 2.382a1 1 0 00.894 0l4.764-2.382zM4.447 8.342A1 1 0 003 9.236V15a1 1 0 00.553.894l4 2A1 1 0 009 17v-5.764a1 1 0 00-.553-.894l-4-2z" />
+            <Link href="/skills/data-tech" className="block">
+              <div className="relative border-l-4 border-blue-500 bg-white rounded-lg shadow-sm p-4 cursor-pointer hover:shadow-md transition-shadow h-full">
+                <div className="flex items-center mb-6">
+                  <div className="bg-purple-100 p-2 rounded-full mr-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-purple-600" viewBox="0 0 20 20" fill="currentColor">
+                      <path d="M11 17a1 1 0 001.447.894l4-2A1 1 0 0017 15V9.236a1 1 0 00-1.447-.894l-4 2a1 1 0 00-.553.894V17zM15.211 6.276a1 1 0 000-1.788l-4.764-2.382a1 1 0 00-.894 0L4.789 4.488a1 1 0 000 1.788l4.764 2.382a1 1 0 00.894 0l4.764-2.382zM4.447 8.342A1 1 0 003 9.236V15a1 1 0 00.553.894l4 2A1 1 0 009 17v-5.764a1 1 0 00-.553-.894l-4-2z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="font-medium text-gray-900">Data & Tech Capable</h3>
+                  </div>
+                </div>
+                <div className="flex justify-end">
+                  <span className="text-blue-500 font-medium">On Track</span>
+                </div>
+                <div className="absolute top-1/2 right-4 transform -translate-y-1/2">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
                   </svg>
                 </div>
-                <div>
-                  <h3 className="font-medium text-gray-900">Data & Tech Capable</h3>
-                </div>
               </div>
-              <div className="flex justify-end">
-                <span className="text-blue-500 font-medium">On Track</span>
-              </div>
-              <div className="absolute top-1/2 right-4 transform -translate-y-1/2">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
-                </svg>
-              </div>
-            </div>
+            </Link>
 
             {/* Leadership & Strategy Card */}
             <div className="relative border-l-4 border-blue-500 bg-white rounded-lg shadow-sm p-4 cursor-pointer hover:shadow-md transition-shadow">
