@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { useSavedItems } from '@/app/contexts/SavedItemsContext';
 
 export type ScenarioStep = {
   id: number;
@@ -16,13 +17,21 @@ export type ScenarioModeProps = {
   objective: string;
   steps: ScenarioStep[];
   backHref: string;
+  forceComplete?: boolean;
 };
 
-export function ScenarioMode({ title, objective, steps, backHref }: ScenarioModeProps) {
+export function ScenarioMode({ title, objective, steps, backHref, forceComplete }: ScenarioModeProps) {
   const [current, setCurrent] = useState(0);
   const [selected, setSelected] = useState<string | null>(null);
   const [showTip, setShowTip] = useState(false);
   const [completedSteps, setCompletedSteps] = useState<number[]>([]);
+
+  // If forceComplete is set, mark all steps as completed
+  useEffect(() => {
+    if (forceComplete) {
+      setCompletedSteps(steps.map(s => s.id));
+    }
+  }, [forceComplete, steps]);
 
   const step = steps[current];
   const isCorrect = selected && step.options.find(o => o.id === selected)?.correct;
@@ -72,10 +81,19 @@ export function ScenarioMode({ title, objective, steps, backHref }: ScenarioMode
     setCompletedSteps([]);
   };
 
-  // Handler for 'Save Progress' button (stub)
+  // Saved Items integration
+  const { addSavedItem, savedItems } = useSavedItems();
+  const scenarioPath = '/learning-coach/completed-scenarios/leadership-strategy';
+  const isAlreadySaved = savedItems.some(item => item.path === scenarioPath && item.type === 'scenario');
+
+  // Handler for 'Save Item' button
   const handleSaveProgress = () => {
-    // TODO: Connect to backend/toolkit as needed
-    alert('Scenario saved to your learning toolkit!');
+    if (isAlreadySaved) return;
+    addSavedItem({
+      title,
+      type: 'scenario',
+      path: scenarioPath
+    });
   };
 
   return (
@@ -86,7 +104,9 @@ export function ScenarioMode({ title, objective, steps, backHref }: ScenarioMode
         </div>
         {/* Scenario Mode Heading */}
         <div className="bg-[#2158F4] rounded-xl p-6 mb-6">
-          <h1 className="text-2xl font-bold text-white mb-1">Scenario: {title}</h1>
+          <Link href="/learning-coach/saved-items" className="text-2xl font-bold text-white mb-1 hover:underline focus:underline">
+            Scenario: {title}
+          </Link>
           <div className="text-white text-base font-medium opacity-90 mt-1">Objective: {objective}</div>
         </div>
         {/* COMPLETION UI */}
@@ -105,11 +125,12 @@ export function ScenarioMode({ title, objective, steps, backHref }: ScenarioMode
             </div>
             <div className="flex flex-col sm:flex-row gap-4 mt-6">
               <button
-                className="bg-[#00C48C] hover:bg-[#00b37a] text-white font-bold py-3 px-6 rounded-lg text-lg transition"
+                className={`bg-[#00C48C] hover:bg-[#00b37a] text-white font-bold py-3 px-6 rounded-lg text-lg transition ${isAlreadySaved ? 'opacity-60 cursor-not-allowed' : ''}`}
                 onClick={handleSaveProgress}
                 type="button"
+                disabled={isAlreadySaved}
               >
-                Save Progress
+                {isAlreadySaved ? 'Saved' : 'Save Item'}
               </button>
               <button
                 className="bg-[#B681FC] hover:bg-purple-500 text-white font-bold py-3 px-6 rounded-lg text-lg transition"
@@ -151,7 +172,7 @@ export function ScenarioMode({ title, objective, steps, backHref }: ScenarioMode
                         >
                           {idx + 1}
                         </span>
-                        <span className="align-middle flex-1">{opt.text}</span>
+                        <span className={`align-middle flex-1 ${isSelected ? (isOptionCorrect ? 'text-green-700' : 'text-red-600') : 'text-gray-700'}`}>{opt.text}</span>
                         <span className={`ml-2 font-semibold transition-opacity ${isSelected && isOptionCorrect ? 'text-green-600 opacity-100' : isSelected && !isOptionCorrect ? 'text-red-600 opacity-100' : 'opacity-0'}`}>{isSelected ? (isOptionCorrect ? '✓' : '✗') : '✓'}</span>
                       </button>
                     );
