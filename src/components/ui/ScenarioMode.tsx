@@ -148,7 +148,7 @@ export function ScenarioMode({ title, objective, steps, backHref, forceComplete 
 
               {/* Question */}
               <div className="mb-4">
-                <div className="text-lg text-gray-700 mb-4 font-medium">
+                <div className="text-lg text-gray-700 font-medium min-h-[48px] flex items-end">
                   Step {current + 1}. {step.question}
                 </div>
                 <div className="flex flex-col sm:flex-row gap-3 mt-2">
@@ -181,10 +181,10 @@ export function ScenarioMode({ title, objective, steps, backHref, forceComplete 
               </div>
             </div>
             {/* Tip/Feedback (outside the container, with reserved space) */}
-            <div className="mb-6" style={{ minHeight: 64 }}>
+            <div className="my-1" style={{ minHeight: 32 }}>
               {showTip ? (
-                <div className="bg-red-50 border border-red-200 rounded p-3">
-                  <div className="font-semibold text-red-700 mb-1">Tip:</div>
+                <div className="bg-red-50 border border-red-200 rounded px-3 py-2">
+                  <div className="font-semibold text-red-700 mb-0.5">Tip:</div>
                   <div className="text-red-700 text-sm">{step.tip}</div>
                 </div>
               ) : (
