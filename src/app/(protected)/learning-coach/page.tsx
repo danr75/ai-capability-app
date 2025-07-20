@@ -1,6 +1,10 @@
+"use client";
+
 import Link from 'next/link';
+import { useSavedItems } from '@/app/contexts/SavedItemsContext';
 
 export default function LearningCoachPage() {
+  const { savedItems, removeSavedItem } = useSavedItems();
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -294,15 +298,45 @@ export default function LearningCoachPage() {
           </div>
 
           {/* Saved Items Section */}
-          <div className="bg-white rounded-lg p-6 text-center">
-            <div className="flex justify-center mb-2">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-blue-500" viewBox="0 0 20 20" fill="currentColor">
-                <path d="M5 4a2 2 0 012-2h6a2 2 0 012 2v14l-5-2.5L5 18V4z" />
-              </svg>
+          <div className="bg-white rounded-lg p-6">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-blue-500 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                  <path d="M5 4a2 2 0 012-2h6a2 2 0 012 2v14l-5-2.5L5 18V4z" />
+                </svg>
+                <h3 className="font-medium text-gray-900">Saved Items</h3>
+              </div>
+              <span className="text-sm text-gray-500">{savedItems.length} items</span>
             </div>
-            <h3 className="font-medium text-gray-900 mb-1">Saved Items</h3>
-            <p className="text-sm text-gray-600 mb-4">Your saved lessons, tests, and articles</p>
-            <div className="text-blue-500 text-xl">+</div>
+            
+            {savedItems.length === 0 ? (
+              <div className="text-center py-8">
+                <p className="text-sm text-gray-600 mb-4">No saved items yet</p>
+                <p className="text-xs text-gray-400">Complete activities and save them to access them quickly here</p>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {savedItems.map((item) => (
+                  <div key={item.id} className="border border-gray-200 rounded-md p-3 flex justify-between items-center hover:bg-gray-50 transition-colors">
+                    <Link href={item.path} className="flex-grow">
+                      <div>
+                        <h4 className="font-medium text-gray-800">{item.title}</h4>
+                        <p className="text-xs text-gray-500 capitalize">{item.type}</p>
+                      </div>
+                    </Link>
+                    <button 
+                      onClick={() => removeSavedItem(item.id)}
+                      className="text-gray-400 hover:text-red-500 p-1"
+                      aria-label="Remove saved item"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </section>
       </div>

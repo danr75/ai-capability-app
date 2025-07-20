@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
+import { ChevronLeft, Check } from 'lucide-react';
 
 type Question = {
   id: number;
@@ -130,6 +131,8 @@ export default function QuickRefreshersPage() {
   const [isChecked, setIsChecked] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
   const [progressDots, setProgressDots] = useState<number[]>(Array(10).fill(0).map((_, i) => i + 1));
+  const [quizCompleted, setQuizCompleted] = useState(false);
+  const [lessonSaved, setLessonSaved] = useState(false);
   
   const currentQuestion = questions[currentQuestionIndex];
   
@@ -177,17 +180,7 @@ export default function QuickRefreshersPage() {
       
       // Mark this question as answered
       if (!answeredQuestions.includes(currentQuestionIndex)) {
-        const newAnsweredQuestions = [...answeredQuestions, currentQuestionIndex];
-        setAnsweredQuestions(newAnsweredQuestions);
-        
-        // Check if this was the last question and all questions are now answered
-        if (newAnsweredQuestions.length === questions.length) {
-          // Navigate to completion page after a short delay
-          setTimeout(() => {
-            window.location.href = '/skills/data-tech/quick-refreshers/completion';
-          }, 500);
-          return;
-        }
+        setAnsweredQuestions([...answeredQuestions, currentQuestionIndex]);
       }
       
       // If this is the last question the user has seen, allow them to proceed to the next one
@@ -195,14 +188,20 @@ export default function QuickRefreshersPage() {
         setMaxQuestionReached(currentQuestionIndex + 1);
       }
       
-      // Auto-advance after a short delay
-      if (currentQuestionIndex < questions.length - 1) {
+      // Check if this is the last question
+      if (currentQuestionIndex === questions.length - 1) {
+        // Set quiz completed after a short delay to show the correct answer
+        setTimeout(() => {
+          setQuizCompleted(true);
+        }, 1000);
+      } else if (currentQuestionIndex < questions.length - 1) {
+        // Auto-advance to next question after a short delay
         setTimeout(() => {
           handleNextQuestion();
           setSelectedOption(null);
           setIsChecked(false);
           setIsCorrect(false);
-        }, 500);
+        }, 1500);
       }
     } else {
       setIsCorrect(false);
@@ -248,8 +247,23 @@ export default function QuickRefreshersPage() {
     }
   };
 
-  // Check if all questions have been answered correctly
-  const allQuestionsAnswered = answeredQuestions.length === questions.length;
+  // Function to reset the quiz
+  const handleRedo = () => {
+    setCurrentQuestionIndex(0);
+    setSelectedOption(null);
+    setIsChecked(false);
+    setIsCorrect(false);
+    setQuizCompleted(false);
+    setLessonSaved(false);
+  };
+
+  // Function to save lessons
+  const handleSaveLessons = () => {
+    setLessonSaved(true);
+    // Here you would implement the actual saving functionality
+    // For example, saving to local storage or making an API call
+    console.log('Lessons saved to Learning Coach page');
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900">
@@ -278,16 +292,46 @@ export default function QuickRefreshersPage() {
           {/* Quick Refreshers heading with blue background */}
           <div className="bg-[#2158F4] text-white rounded-lg p-4 sm:p-6 mb-6">
             <h1 className="text-2xl sm:text-3xl font-bold">Quick Refreshers</h1>
-            <p className="mt-1">Lesson: AI Learning Methods & Techniques</p>
+            <p className="mt-1">Test your knowledge with bite-sized AI learning exercises</p>
           </div>
         </div>
       </div>
 
       {/* Main quiz content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
-        {/* We've removed the completion message here as we now redirect automatically */}
-        {/* Background container sized to match the red outline in the image */}
-        <div className="max-w-4xl mx-auto bg-[#E5EDFF] rounded-lg shadow-sm mb-8 overflow-hidden">
+        {quizCompleted ? (
+          /* Success screen */
+          <div className="max-w-4xl mx-auto bg-[#E5EDFF] rounded-lg shadow-sm mb-8 overflow-hidden p-8">
+            <div className="text-center">
+              <div className="inline-flex items-center justify-center h-24 w-24 rounded-full bg-[#00C48C] mb-6">
+                <Check className="h-12 w-12 text-white" />
+              </div>
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">Quiz Completed!</h2>
+              <p className="text-lg text-gray-700 mb-8">Congratulations! You've successfully completed the Quick Refreshers quiz.</p>
+              
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <button 
+                  onClick={handleRedo}
+                  className="px-6 py-3 bg-white border border-gray-300 rounded-md text-gray-700 font-medium hover:bg-gray-50 transition-colors w-full sm:w-auto"
+                >
+                  Redo Quiz
+                </button>
+                
+                <button 
+                  onClick={handleSaveLessons}
+                  disabled={lessonSaved}
+                  className={`px-6 py-3 rounded-md font-medium w-full sm:w-auto transition-colors ${lessonSaved 
+                    ? 'bg-[#00C48C] text-white cursor-default' 
+                    : 'bg-[#B681FC] text-white hover:bg-[#B681FC]/90'}`}
+                >
+                  {lessonSaved ? 'Saved to Learning Coach' : 'Save Lessons'}
+                </button>
+              </div>
+            </div>
+          </div>
+        ) : (
+          /* Quiz container */
+          <div className="max-w-4xl mx-auto bg-[#E5EDFF] rounded-lg shadow-sm mb-8 overflow-hidden">
           {/* Progress bar */}
           <div className="p-4">
             <div className="w-full flex items-center px-4 pb-4 max-w-4xl mx-auto">
@@ -400,6 +444,7 @@ export default function QuickRefreshersPage() {
             </button>
           </div>
         </div>
+        )}
       </div>
     </div>
   );
