@@ -1,6 +1,7 @@
 "use client";
 
-import QuickRefresher from '@/components/ui/QuickRefresher';
+import Link from 'next/link';
+import { useState, useEffect } from 'react';
 
 type Question = {
   id: number;
@@ -15,6 +16,11 @@ type Question = {
 };
 
 export default function QuickRefreshersPage() {
+  // Track which questions have been answered correctly
+  const [answeredQuestions, setAnsweredQuestions] = useState<number[]>([]);
+  // Track the furthest question the user has reached
+  const [maxQuestionReached, setMaxQuestionReached] = useState<number>(0);
+  
   const questions: Question[] = [
     {
       id: 1,
@@ -57,7 +63,7 @@ export default function QuickRefreshersPage() {
       explanation: "Unsupervised learning discovers patterns without labeled examples."
     },
     {
-      id: 5,
+      id: 7,
       text: "is an AI approach where agents learn through trial and error",
       blank: "___________",
       options: [
@@ -67,7 +73,7 @@ export default function QuickRefreshersPage() {
       explanation: "Reinforcement learning involves learning optimal actions through rewards and penalties."
     },
     {
-      id: 6,
+      id: 8,
       text: "is a technique that reuses knowledge from one task to another",
       blank: "___________",
       options: [
@@ -77,7 +83,7 @@ export default function QuickRefreshersPage() {
       explanation: "Transfer learning applies knowledge from previously learned tasks to new related ones."
     },
     {
-      id: 7,
+      id: 9,
       text: "is a collaborative ML approach that trains across decentralized devices",
       blank: "___________",
       options: [
@@ -87,7 +93,7 @@ export default function QuickRefreshersPage() {
       explanation: "Federated learning trains models across multiple devices while keeping data local."
     },
     {
-      id: 8,
+      id: 10,
       text: "is a method that combines multiple models to improve performance",
       blank: "___________",
       options: [
