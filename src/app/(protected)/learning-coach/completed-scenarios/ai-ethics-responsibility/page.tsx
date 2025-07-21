@@ -1,4 +1,7 @@
+"use client";
+
 import { ScenarioMode, ScenarioStep } from '@/components/ui/ScenarioMode';
+import { useState, useEffect } from 'react';
 
 const scenarioSteps: ScenarioStep[] = [
   {
@@ -14,14 +17,17 @@ const scenarioSteps: ScenarioStep[] = [
   // Add more steps as needed
 ];
 
-export default function AIEthicsScenarioChallenges() {
+export default function CompletedAIEthicsScenarioPage() {
+  const [forceComplete, setForceComplete] = useState(false);
+  useEffect(() => setForceComplete(true), []);
   return (
     <ScenarioMode
       title="AI Ethics & Responsibility"
       objective="Demonstrate your understanding of ethical AI principles."
       steps={scenarioSteps}
-      backHref="/skills/ai-ethics-responsibility"
+      backHref="/learning-coach"
       scenarioPath="/learning-coach/completed-scenarios/ai-ethics-responsibility"
+      forceComplete={forceComplete}
     />
   );
 }

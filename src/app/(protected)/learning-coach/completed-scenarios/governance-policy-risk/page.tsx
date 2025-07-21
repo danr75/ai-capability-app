@@ -1,4 +1,7 @@
+"use client";
+
 import { ScenarioMode, ScenarioStep } from '@/components/ui/ScenarioMode';
+import { useState, useEffect } from 'react';
 
 const scenarioSteps: ScenarioStep[] = [
   {
@@ -14,14 +17,17 @@ const scenarioSteps: ScenarioStep[] = [
   // Add more steps as needed
 ];
 
-export default function GovernancePolicyRiskScenarioChallenges() {
+export default function CompletedGovernancePolicyRiskScenarioPage() {
+  const [forceComplete, setForceComplete] = useState(false);
+  useEffect(() => setForceComplete(true), []);
   return (
     <ScenarioMode
       title="Governance, Policy & Risk"
       objective="Demonstrate your understanding of AI governance and risk management."
       steps={scenarioSteps}
-      backHref="/skills/governance-policy-risk"
+      backHref="/learning-coach"
       scenarioPath="/learning-coach/completed-scenarios/governance-policy-risk"
+      forceComplete={forceComplete}
     />
   );
 }

@@ -18,9 +18,10 @@ export default function DataTechScenarioChallenges() {
   return (
     <ScenarioMode
       title="Data & Tech Capable"
-      objective="Showcase your data and technical decision-making skills."
+      objective="Demonstrate your technical data and AI skills."
       steps={scenarioSteps}
       backHref="/skills/data-tech"
+      scenarioPath="/learning-coach/completed-scenarios/data-tech"
     />
   );
 }

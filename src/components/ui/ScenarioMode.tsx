@@ -17,10 +17,11 @@ export type ScenarioModeProps = {
   objective: string;
   steps: ScenarioStep[];
   backHref: string;
+  scenarioPath: string; // unique path for saved item
   forceComplete?: boolean;
 };
 
-export function ScenarioMode({ title, objective, steps, backHref, forceComplete }: ScenarioModeProps) {
+export function ScenarioMode({ title, objective, steps, backHref, scenarioPath, forceComplete }: ScenarioModeProps) {
   const [current, setCurrent] = useState(0);
   const [selected, setSelected] = useState<string | null>(null);
   const [showTip, setShowTip] = useState(false);
@@ -83,12 +84,11 @@ export function ScenarioMode({ title, objective, steps, backHref, forceComplete 
 
   // Saved Items integration
   const { addSavedItem, savedItems } = useSavedItems();
-  const scenarioPath = '/learning-coach/completed-scenarios/leadership-strategy';
   const isAlreadySaved = savedItems.some(item => item.path === scenarioPath && item.type === 'scenario');
 
   // Handler for 'Save Item' button
   const handleSaveProgress = () => {
-    if (isAlreadySaved) return;
+    if (isAlreadySaved || !isComplete) return;
     addSavedItem({
       title,
       type: 'scenario',
@@ -123,17 +123,23 @@ export function ScenarioMode({ title, objective, steps, backHref, forceComplete 
                 </div>
               ))}
             </div>
-            <div className="flex flex-col sm:flex-row gap-4 mt-6">
+            <div className="flex gap-3 mt-6">
+              {((isComplete && isAlreadySaved) || forceComplete) ? (
+                <button className="px-6 py-2 rounded font-semibold bg-green-200 text-green-700 cursor-default" disabled>
+                  Saved
+                </button>
+              ) : (
+                <button
+                  className={`px-6 py-2 rounded font-semibold bg-[#2158F4] text-white hover:bg-[#1741b3] transition-colors ${(!isComplete || isAlreadySaved) ? 'opacity-60 cursor-not-allowed' : ''}`}
+                  onClick={handleSaveProgress}
+                  disabled={!isComplete || isAlreadySaved}
+                  type="button"
+                >
+                  {isAlreadySaved ? 'Saved' : 'Save Item'}
+                </button>
+              )}
               <button
-                className={`bg-[#00C48C] hover:bg-[#00b37a] text-white font-bold py-3 px-6 rounded-lg text-lg transition ${isAlreadySaved ? 'opacity-60 cursor-not-allowed' : ''}`}
-                onClick={handleSaveProgress}
-                type="button"
-                disabled={isAlreadySaved}
-              >
-                {isAlreadySaved ? 'Saved' : 'Save Item'}
-              </button>
-              <button
-                className="bg-[#B681FC] hover:bg-purple-500 text-white font-bold py-3 px-6 rounded-lg text-lg transition"
+                className={`px-6 py-2 rounded font-semibold bg-[#2158F4] text-white hover:bg-[#1741b3] transition-colors`}
                 onClick={handleDoAgain}
                 type="button"
               >

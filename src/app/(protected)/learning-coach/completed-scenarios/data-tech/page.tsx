@@ -1,4 +1,7 @@
+"use client";
+
 import { ScenarioMode, ScenarioStep } from '@/components/ui/ScenarioMode';
+import { useState, useEffect } from 'react';
 
 const scenarioSteps: ScenarioStep[] = [
   {
@@ -14,14 +17,17 @@ const scenarioSteps: ScenarioStep[] = [
   // Add more steps as needed
 ];
 
-export default function WorkforceEnablementScenarioChallenges() {
+export default function CompletedDataTechScenarioPage() {
+  const [forceComplete, setForceComplete] = useState(false);
+  useEffect(() => setForceComplete(true), []);
   return (
     <ScenarioMode
-      title="Workforce Enablement"
-      objective="Show your ability to enable teams for AI success."
+      title="Data & Tech Capable"
+      objective="Demonstrate your technical data and AI skills."
       steps={scenarioSteps}
-      backHref="/skills/workforce-enablement"
-      scenarioPath="/learning-coach/completed-scenarios/workforce-enablement"
+      backHref="/learning-coach"
+      scenarioPath="/learning-coach/completed-scenarios/data-tech"
+      forceComplete={forceComplete}
     />
   );
 }
