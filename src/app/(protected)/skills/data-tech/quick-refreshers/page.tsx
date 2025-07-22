@@ -1,7 +1,6 @@
 "use client";
 
-import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import QuickRefresher from '@/components/ui/QuickRefresher';
 
 type Question = {
   id: number;
@@ -16,11 +15,6 @@ type Question = {
 };
 
 export default function QuickRefreshersPage() {
-  // Track which questions have been answered correctly
-  const [answeredQuestions, setAnsweredQuestions] = useState<number[]>([]);
-  // Track the furthest question the user has reached
-  const [maxQuestionReached, setMaxQuestionReached] = useState<number>(0);
-  
   const questions: Question[] = [
     {
       id: 1,
@@ -104,19 +98,22 @@ export default function QuickRefreshersPage() {
     }
   ];
 
-  const tipText = (
-    <>
-      <span className="text-primary font-medium">Skill Tip:</span> This quick refresher helps reinforce key concepts in Data & Tech. Take your time to understand each question before answering.
-    </>
-  );
-
   return (
     <QuickRefresher
       questions={questions}
-      skillArea="Data & Tech"
+      skillArea="Data & Tech Capable"
       backLink="/skills/data-tech"
-      tipText={tipText}
       completionLink="/skills/data-tech/quick-refreshers/completion"
+      tipText={
+        <>
+          <p className="mb-2">Quick tips for Data & Tech concepts:</p>
+          <ul className="list-disc pl-5 space-y-1">
+            <li>Focus on understanding core AI/ML concepts and terminology</li>
+            <li>Pay attention to different types of machine learning approaches</li>
+            <li>Note the practical applications of different AI technologies</li>
+          </ul>
+        </>
+      }
     />
   );
 }
