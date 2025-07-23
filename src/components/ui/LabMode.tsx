@@ -209,15 +209,17 @@ export default function LabMode() {
               Checked
             </Button>
           )}
-          <Button
-            variant="purple"
-            size="sm"
-            className="text-xs"
-            onClick={handleNext}
-            disabled={!checked}
-          >
-            Next Question &rarr;
-          </Button>
+          {/* Only show Next if all correct options are selected and no incorrects are selected */}
+          {checked && QUESTION.options.every(opt => (!opt.correct || selected.includes(opt.id)) && (opt.correct || !selected.includes(opt.id))) && (
+            <Button
+              variant="purple"
+              size="sm"
+              className="text-xs"
+              onClick={handleNext}
+            >
+              Next Question &rarr;
+            </Button>
+          )}
         </div>
       </div>
     </div>
