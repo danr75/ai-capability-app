@@ -1,53 +1,6 @@
 'use client';
 
 import React, { useState } from "react";
-
-const AI_SYSTEMS: string[] = [
-  "AI-powered hiring algorithm for tech company",
-  "Autonomous vehicle navigation system",
-  "Medical diagnosis AI for radiology",
-  "Social media content recommendation engine",
-  "Predictive policing algorithm for law enforcement",
-];
-
-const RISK_LEVELS: { label: string; description: string; value: string }[] = [
-  {
-    label: "Low Risk",
-    description: "Minimal potential for harm",
-    value: "low",
-  },
-  {
-    label: "Medium Risk",
-    description: "Moderate potential for harm",
-    value: "medium",
-  },
-  {
-    label: "High Risk",
-    description: "Significant potential for harm",
-    value: "high",
-  },
-];
-
-const RISK_FACTORS: string[] = [
-  "Data Privacy",
-  "Integration",
-  "Etc... add more",
-];
-
-interface Option {
-  id: string;
-  title: string;
-  description: string;
-}
-
-interface LabModeProps {
-  className?: string;
-  title?: string;
-  question?: string;
-  currentStep?: number;
-  totalSteps?: number;
-}
-
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 
@@ -119,12 +72,20 @@ export default function LabMode() {
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col items-center py-8 px-2">
       <div className="w-full max-w-xl mb-3">
-        <a href="#" className="text-xs text-gray-500 hover:underline">&larr; Previous</a>
+        <a href="#" className="text-sm font-medium text-primary-600 hover:underline flex items-center gap-1">
+          <span className="text-base">&larr;</span> Back to Data & Tech
+        </a>
+      </div>
+      {/* Lab Header */}
+      <div className="w-full max-w-xl mb-4">
+        <div className="rounded-lg p-4" style={{ background: 'linear-gradient(90deg, #005fd1 90%, #1e90ff 100%)', color: '#fff' }}>
+          <div className="font-bold text-base">Lab - Data & Tech Capable</div>
+          <div className="text-sm opacity-90">Objective: xxxxx</div>
+        </div>
       </div>
       <div className="w-full max-w-xl bg-white rounded-lg shadow p-6 flex flex-col gap-6">
         <div>
           <Label className="text-lg font-semibold mb-1 block">{QUESTION.title}</Label>
-          <div className="text-sm text-gray-500 mb-4">{QUESTION.subtitle}</div>
           <div className="flex flex-col gap-3">
             {QUESTION.options.map((opt) => (
               <button
@@ -171,11 +132,9 @@ export default function LabMode() {
           </div>
         </div>
         {/* Show message if incorrects after checking */}
-        {checked && selected.some(
-          (id) => !QUESTION.options.find((o) => o.id === id)?.correct
-        ) && (
+        {checked && (!QUESTION.options.every(opt => (!opt.correct || selected.includes(opt.id)) && (opt.correct || !selected.includes(opt.id)))) && (
           <div className="text-red-600 text-sm mt-2">
-            You have incorrect selections. You can retry or continue to the next question.
+            Select all correct answers to proceed, no incorrect options.
           </div>
         )}
         {checked && (
@@ -184,33 +143,39 @@ export default function LabMode() {
             <div className="text-sm text-gray-700">{QUESTION.explanation}</div>
           </div>
         )}
-        <div className="flex justify-between mt-4">
+        <div className="flex items-center justify-between gap-2 mt-4 w-full">
+          {/* Previous button (always left) */}
           <Button variant="outline" size="sm" className="text-xs" disabled>
             &larr; Previous
           </Button>
-          {!checked ? (
-            <Button
-              variant="purple"
-              size="lg"
-              className="font-semibold px-8"
-              onClick={handleCheck}
-              disabled={selected.length === 0}
-            >
-              Check
-            </Button>
-          ) : (
-            <Button
-              variant="purple"
-              size="lg"
-              className="font-semibold px-8"
-              onClick={handleCheck}
-              disabled
-            >
-              Checked
-            </Button>
-          )}
-          {/* Only show Next if all correct options are selected and no incorrects are selected */}
-          {checked && QUESTION.options.every(opt => (!opt.correct || selected.includes(opt.id)) && (opt.correct || !selected.includes(opt.id))) && (
+
+          {/* Check/Checked button (always center) */}
+          <div className="flex-1 flex justify-center">
+            {!checked ? (
+              <Button
+                variant="purple"
+                size="lg"
+                className="font-semibold px-8"
+                onClick={handleCheck}
+                disabled={selected.length === 0}
+              >
+                Check
+              </Button>
+            ) : (
+              <Button
+                variant="purple"
+                size="lg"
+                className="font-semibold px-8"
+                onClick={handleCheck}
+                disabled
+              >
+                Checked
+              </Button>
+            )}
+          </div>
+
+          {/* Next button (always right, only when eligible) */}
+          {checked && QUESTION.options.every(opt => (!opt.correct || selected.includes(opt.id)) && (opt.correct || !selected.includes(opt.id))) ? (
             <Button
               variant="purple"
               size="sm"
@@ -219,6 +184,8 @@ export default function LabMode() {
             >
               Next Question &rarr;
             </Button>
+          ) : (
+            <span className="w-[120px]" />
           )}
         </div>
       </div>
