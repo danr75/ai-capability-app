@@ -1,6 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+import { AppLayout } from '@/components/layout/AppLayout';
 import LabMode from "@/components/ui/LabMode";
 
 export default function LabModeTestPage() {
@@ -21,8 +22,13 @@ export default function LabModeTestPage() {
     alert(`Option ${optionId} submitted successfully!`);
   };
 
+  const user = {
+    id: "demo",
+    email: "demo@example.com",
+    name: "Demo User"
+  };
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+    <AppLayout user={user}>
       <LabMode 
         title="Learning Coach"
         question="Which of the following best describes your current understanding of this topic?"
@@ -49,6 +55,6 @@ export default function LabModeTestPage() {
           }
         ]}
       />
-    </div>
+    </AppLayout>
   );
 }
