@@ -37,6 +37,14 @@ export default function LearningCoachPage() {
             </div>
           </div>
           <p className="text-sm text-gray-600 mb-2">10 minute learning based on what you need to learn the most</p>
+<div className="flex flex-wrap gap-3 mb-2">
+  <div className="bg-white border border-gray-200 rounded-full px-4 py-2 text-sm text-gray-700 shadow-sm">What are AI agents</div>
+  <div className="bg-white border border-gray-200 rounded-full px-4 py-2 text-sm text-gray-700 shadow-sm">AI Agent Risks</div>
+  <div className="bg-white border border-gray-200 rounded-full px-4 py-2 text-sm text-gray-700 shadow-sm">Use Case identification</div>
+  <div className="bg-white border border-gray-200 rounded-full px-4 py-2 text-sm text-gray-700 shadow-sm">High Risk Use Cases</div>
+  <div className="bg-white border border-gray-200 rounded-full px-4 py-2 text-sm text-gray-700 shadow-sm">What are Tokens</div>
+  <div className="bg-white border border-gray-200 rounded-full px-4 py-2 text-sm text-gray-700 shadow-sm">Large Language Models Explained</div>
+</div>
         </section>
         
         {/* Ongoing Skill Development Section */}
