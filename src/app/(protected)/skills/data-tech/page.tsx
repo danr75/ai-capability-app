@@ -30,10 +30,11 @@ export default function DataTechPage() {
         {/* Capability Progress Bar */}
         <div className="mb-8 mt-8">
           <div className="relative">
-            <div className="w-full bg-gray-200 rounded-full h-3">
-              <div className="bg-primary h-3 rounded-full transition-all duration-300" style={{width: '50%'}}></div>
+            <div className="w-full bg-gray-200 rounded-full h-8 flex items-center">
+              <div className="bg-primary h-8 rounded-full transition-all duration-300 flex items-center justify-center relative" style={{width: '50%'}}>
+                <span className="text-sm font-medium text-white">50%</span>
+              </div>
             </div>
-            <span className="absolute -top-6 text-sm font-medium text-gray-600" style={{left: '50%', transform: 'translateX(-50%)'}}>50%</span>
           </div>
           <div className="flex justify-between mt-2 text-xs text-gray-500">
             <span>Aware</span>
@@ -88,13 +89,13 @@ export default function DataTechPage() {
                     </div>
                     <span className="text-sm font-medium text-green-700">Large Language Models Explained</span>
                   </div>
-                  <div className="flex items-center gap-3 px-4 py-2 bg-gray-50 rounded-full border border-gray-200 opacity-60">
-                    <div className="w-5 h-5 bg-gray-300 rounded-full flex items-center justify-center">
-                      <svg className="w-3 h-3 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                  <div className="flex items-center gap-3 px-4 py-2 bg-blue-50 rounded-full border border-blue-200">
+                    <div className="w-5 h-5 bg-blue-500 rounded-full flex items-center justify-center">
+                      <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                       </svg>
                     </div>
-                    <span className="text-sm font-medium text-gray-500">Data Pipeline Architecture</span>
+                    <span className="text-sm font-medium text-blue-700">Data Pipeline Architecture</span>
                   </div>
                   <div className="flex items-center gap-3 px-4 py-2 bg-gray-50 rounded-full border border-gray-200 opacity-60">
                     <div className="w-5 h-5 bg-gray-300 rounded-full flex items-center justify-center">
@@ -193,8 +194,11 @@ export default function DataTechPage() {
           </div>
         </div>
 
-        {/* Test your knowledge Section */}
-        <h2 className="text-lg font-semibold text-gray-900 mb-4 mt-8">Test your knowledge</h2>
+        {/* Strengthen & Apply Your Knowledge Section */}
+        <div className="mt-8 mb-6">
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">Strengthen & Apply Your Knowledge</h2>
+          <p className="text-gray-600">Reinforce key concepts and improve retention through targeted practice and real-world application.</p>
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Quick Refreshers */}
           <Link href="/skills/data-tech/quick-refreshers" className="block">
@@ -207,10 +211,10 @@ export default function DataTechPage() {
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                    Quick Refreshers
+                    Smart Refresh
                   </h3>
                   <p className="text-sm text-gray-600">
-                    5-10 minute learning bursts on data and technology fundamentals
+                    Strengthen memory with tailored review of weaker areas and essential concepts.
                   </p>
                 </div>
               </div>
@@ -228,10 +232,10 @@ export default function DataTechPage() {
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                    Scenario Challenges
+                    Scenario Practice
                   </h3>
                   <p className="text-sm text-gray-600">
-                    Apply your skills to realistic data & tech scenarios
+                    Apply what you've learned in realistic, practical data & tech situations.
                   </p>
                 </div>
               </div>
@@ -249,10 +253,10 @@ export default function DataTechPage() {
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                    Speed Test
+                    Challenge Mode
                   </h3>
                   <p className="text-sm text-gray-600">
-                    Test your knowledge under time pressure with quick quizzes
+                    Sharpen your knowledge under time pressure with concept-focused quizzes.
                   </p>
                 </div>
               </div>
@@ -270,10 +274,10 @@ export default function DataTechPage() {
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                    Real-World Assessment
+                    Real-World Simulation
                   </h3>
                   <p className="text-sm text-gray-600">
-                    Test your knowledge with simulated real-world situations.
+                    Test your skills with realistic scenarios that reflect job-relevant applications.
                   </p>
                 </div>
               </div>
