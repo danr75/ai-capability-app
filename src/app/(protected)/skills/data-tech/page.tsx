@@ -27,23 +27,9 @@ export default function DataTechPage() {
           <p className="text-lg">Build the technical foundation and capabilities for successful AI implementation</p>
         </div>
 
-        {/* Capability Progress Bar */}
-        <div className="mb-8 mt-8">
-          <div className="relative">
-            <div className="w-full bg-gray-200 rounded-full h-8 flex items-center">
-              <div className="bg-primary h-8 rounded-full transition-all duration-300 flex items-center justify-center relative" style={{width: '50%'}}>
-                <span className="text-sm font-medium text-white">50%</span>
-              </div>
-            </div>
-          </div>
-          <div className="flex justify-between mt-2 text-xs text-gray-500">
-            <span>Aware</span>
-            <span>Participate</span>
-          </div>
-        </div>
-
         {/* Modules Section */}
         <div className="mt-8 mb-8">
+          <h2 className="text-xl font-semibold text-gray-900 mb-6">Advance Your Capability: From Aware to Active</h2>
           <div className="flex items-center gap-4">
             {/* Left Arrow */}
             <button 
@@ -62,6 +48,16 @@ export default function DataTechPage() {
 
             {/* Scrollable Modules Container */}
             <div id="modules-container" className="flex-1 overflow-x-auto scrollbar-hide">
+              {/* Capability Progress Bar - spans full module width */}
+              <div className="mb-4 min-w-max">
+                <div className="relative min-w-max">
+                  <div className="bg-gray-200 rounded-full h-6 flex items-center min-w-max">
+                    <div className="bg-primary h-6 rounded-full transition-all duration-300 flex items-center justify-center relative" style={{width: '50%'}}>
+                      <span className="text-xs font-medium text-white">50%</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
               <div className="space-y-4">
                 {/* First row */}
                 <div className="flex gap-3 min-w-max">
