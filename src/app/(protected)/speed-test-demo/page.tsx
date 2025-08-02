@@ -21,14 +21,29 @@ export default function SpeedTestDemoPage() {
   const [isCompleted, setIsCompleted] = useState(false);
   const [score, setScore] = useState<number>(0);
   const [isLoading, setIsLoading] = useState(true);
+  const [retryCount, setRetryCount] = useState(0);
+  const [currentSet, setCurrentSet] = useState(0);
 
   // Load questions for the specified capability
   useEffect(() => {
     const loadQuestions = async () => {
       try {
         setIsLoading(true);
-        const capabilityQuestions = getQuestionsForCapability(capability);
-        setQuestions(capabilityQuestions);
+        const allQuestions = getQuestionsForCapability(capability);
+        
+        // Get 10 questions starting from currentSet * 10
+        const startIndex = currentSet * 10;
+        const endIndex = startIndex + 10;
+        const questionsForSet = allQuestions.slice(startIndex, endIndex);
+        
+        // If we don't have enough questions, cycle back to the beginning
+        if (questionsForSet.length < 10) {
+          const remainingNeeded = 10 - questionsForSet.length;
+          const additionalQuestions = allQuestions.slice(0, remainingNeeded);
+          setQuestions([...questionsForSet, ...additionalQuestions]);
+        } else {
+          setQuestions(questionsForSet);
+        }
       } catch (error) {
         console.error('Error loading questions:', error);
       } finally {
@@ -37,7 +52,7 @@ export default function SpeedTestDemoPage() {
     };
     
     loadQuestions();
-  }, [capability]);
+  }, [capability, currentSet]);
 
   const handleComplete = (testResults: { correct: boolean; questionId: string }[]) => {
     setResults(testResults);
@@ -50,6 +65,15 @@ export default function SpeedTestDemoPage() {
     setResults([]);
     setIsCompleted(false);
     setScore(0);
+    setRetryCount(prev => prev + 1); // Force component remount
+  };
+
+  const handleNext = () => {
+    setResults([]);
+    setIsCompleted(false);
+    setScore(0);
+    setCurrentSet(prev => prev + 1); // Load next set of questions
+    setRetryCount(prev => prev + 1); // Force component remount
   };
 
   const title = CAPABILITY_TITLES[capability] || CAPABILITY_TITLES['default'];
@@ -80,7 +104,7 @@ export default function SpeedTestDemoPage() {
           
           {/* Header with blue background */}
           <div className="bg-[#2158F4] text-white rounded-lg p-4 sm:p-6 mb-6">
-            <h1 className="text-2xl sm:text-3xl font-bold">Speed Test</h1>
+            <h1 className="text-2xl sm:text-3xl font-bold">Speed Test - Set {currentSet + 1}</h1>
             <p className="mt-1">Test your knowledge under time pressure</p>
           </div>
         </div>
@@ -93,7 +117,7 @@ export default function SpeedTestDemoPage() {
             <div className="bg-white rounded-lg shadow-md p-6">
               {isCompleted ? (
                 <div className="text-center">
-                  <h2 className="text-3xl font-bold mb-4 text-gray-900">Test Complete!</h2>
+                  <h2 className="text-3xl font-bold mb-4 text-gray-900">Set {currentSet + 1} Complete!</h2>
                   <p className="text-xl mb-6 text-gray-800">
                     You scored {score} out of {questions.length} correct.
                   </p>
@@ -104,16 +128,17 @@ export default function SpeedTestDemoPage() {
                     >
                       Try Again
                     </button>
-                    <Link
-                      href={`/skills/${capability}`}
-                      className="px-6 py-3 bg-[#2158F4] text-white rounded-md hover:bg-[#2158F4]/90 transition-colors text-center font-medium"
+                    <button
+                      onClick={handleNext}
+                      className="px-6 py-3 bg-[#2158F4] text-white rounded-md hover:bg-[#2158F4]/90 transition-colors font-medium"
                     >
-                      Back to {title}
-                    </Link>
+                      Next
+                    </button>
                   </div>
                 </div>
               ) : (
                 <SpeedTest
+                  key={`speed-test-${retryCount}`}
                   questions={questions}
                   onComplete={handleComplete}
                   timePerQuestion={DEFAULT_TIME_PER_QUESTION}

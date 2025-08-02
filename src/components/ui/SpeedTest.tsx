@@ -28,6 +28,7 @@ export const SpeedTest: React.FC<SpeedTestProps> = ({
   const [progress, setProgress] = useState(100);
   const timerRef = useRef<number | null>(null);
   const testStartTime = useRef<number>(0);
+  const resultsRef = useRef<{ correct: boolean; questionId: string }[]>([]);
 
   const currentQuestion = questions[currentIndex];
 
@@ -46,6 +47,7 @@ export const SpeedTest: React.FC<SpeedTestProps> = ({
       { correct: isCorrect, questionId: currentQuestion.id }
     ];
     setResults(newResults);
+    resultsRef.current = newResults;
     
     // If it's the last question, complete the test
     if (currentIndex >= questions.length - 1) {
@@ -62,7 +64,7 @@ export const SpeedTest: React.FC<SpeedTestProps> = ({
     }, 1000); // 1 second delay to show feedback
   }, [currentIndex, currentQuestion, isCompleted, onComplete, questions.length]);
 
-  // Initialize timer on component mount - completely independent
+  // Initialize timer - restarts when test is reset
   useEffect(() => {
     if (isCompleted) return;
 
@@ -97,7 +99,7 @@ export const SpeedTest: React.FC<SpeedTestProps> = ({
         setProgress(0);
         setTimeLeft(0);
         setIsCompleted(true);
-        onComplete(results);
+        onComplete(resultsRef.current);
       }
     };
 
@@ -110,14 +112,19 @@ export const SpeedTest: React.FC<SpeedTestProps> = ({
         cancelAnimationFrame(timerRef.current);
       }
     };
-  }, []); // Empty dependency array - run only once on mount
+  }, [isCompleted, onComplete]); // Restart when isCompleted changes
+
+  // Update results ref when results change
+  useEffect(() => {
+    resultsRef.current = results;
+  }, [results]);
 
   // Update onComplete callback when results change
   useEffect(() => {
     if (isCompleted) {
-      onComplete(results);
+      onComplete(resultsRef.current);
     }
-  }, [isCompleted, results, onComplete]);
+  }, [isCompleted, onComplete]);
 
   if (isCompleted) {
     return (
@@ -146,7 +153,7 @@ export const SpeedTest: React.FC<SpeedTestProps> = ({
         </div>
         <div className="w-full bg-gray-200 rounded-full h-3">
           <div 
-            className="bg-gradient-to-r from-blue-500 to-blue-600 h-3 rounded-full transition:width duration-100 ease-linear"
+            className="bg-gradient-to-r from-blue-500 to-blue-600 h-3 rounded-full transition-all duration-75 ease-linear"
             style={{ width: `${progress}%` }}
           />
         </div>
