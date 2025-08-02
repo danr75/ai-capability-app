@@ -64,14 +64,15 @@ export const SpeedTest: React.FC<SpeedTestProps> = ({
     }, 1000); // 1 second delay to show feedback
   }, [currentIndex, currentQuestion, isCompleted, onComplete, questions.length]);
 
-  // Initialize timer - restarts when test is reset
+  // Initialize timer - runs once on mount and restarts when component remounts
   useEffect(() => {
-    if (isCompleted) return;
-
     // Clear any existing timer
     if (timerRef.current) {
       cancelAnimationFrame(timerRef.current);
     }
+
+    // Don't start timer if already completed
+    if (isCompleted) return;
 
     // Set up timer variables
     const totalDuration = 15000; // 15 seconds
@@ -112,19 +113,12 @@ export const SpeedTest: React.FC<SpeedTestProps> = ({
         cancelAnimationFrame(timerRef.current);
       }
     };
-  }, [isCompleted, onComplete]); // Restart when isCompleted changes
+  }, []); // Empty dependency array - only run on mount/remount
 
   // Update results ref when results change
   useEffect(() => {
     resultsRef.current = results;
   }, [results]);
-
-  // Update onComplete callback when results change
-  useEffect(() => {
-    if (isCompleted) {
-      onComplete(resultsRef.current);
-    }
-  }, [isCompleted, onComplete]);
 
   if (isCompleted) {
     return (

@@ -67,24 +67,26 @@ export default function LeadershipStrategyPage() {
             </div>
           </Link>
 
-          {/* Role Play Simulations */}
-          <div className="bg-white rounded-lg shadow-sm p-6 hover:shadow-md transition-shadow">
-            <div className="flex items-start mb-4">
-              <div className="bg-blue-100 p-3 rounded-full mr-4">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-primary" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
-                </svg>
-              </div>
-              <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                  Role Play Simulations
-                </h3>
-                <p className="text-sm text-gray-600">
-                  Practice strategic decision-making in real-world contexts
-                </p>
+          {/* Speed Test */}
+          <Link href="/speed-test-demo?capability=leadership-strategy" className="block">
+            <div className="bg-white rounded-lg shadow-sm p-6 hover:shadow-md transition-shadow h-full">
+              <div className="flex items-start mb-4">
+                <div className="bg-blue-100 p-3 rounded-full mr-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-primary" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                    Speed Test
+                  </h3>
+                  <p className="text-sm text-gray-600">
+                    Test your knowledge under time pressure with quick quizzes
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
+          </Link>
 
           {/* Real-World Assessment */}
           <Link href="/skills/leadership-strategy/lab-mode" className="block">

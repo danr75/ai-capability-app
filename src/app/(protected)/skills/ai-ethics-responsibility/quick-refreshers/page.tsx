@@ -129,7 +129,7 @@ export default function QuickRefreshersPage() {
   return (
     <QuickRefresher
       questions={questions}
-      skillArea="Ethical Principles for Responsible AI"
+      skillArea="AI Ethics & Responsibility"
       backLink="/skills/ai-ethics-responsibility"
       tipText={tipText}
       completionLink="/skills/ai-ethics-responsibility/quick-refreshers/completion"

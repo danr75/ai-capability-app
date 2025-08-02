@@ -100,7 +100,7 @@ export function ScenarioMode({ title, objective, steps, backHref, scenarioPath, 
     <div className="max-w-4xl mx-auto bg-white rounded-xl shadow p-6 mt-8">
         {/* Top bar */}
         <div className="flex items-center mb-4">
-          <Link href={backHref} className="text-blue-700 hover:underline mr-4 text-sm font-medium">← Back to Scenario List</Link>
+          <Link href={backHref} className="text-blue-700 hover:underline mr-4 text-sm font-medium">← Back to {title}</Link>
         </div>
         {/* Scenario Mode Heading */}
         <div className="bg-[#2158F4] rounded-xl p-6 mb-6">

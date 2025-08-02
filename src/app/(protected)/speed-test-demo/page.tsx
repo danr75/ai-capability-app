@@ -9,7 +9,11 @@ import { ArrowLeft } from "lucide-react";
 
 const CAPABILITY_TITLES: Record<string, string> = {
   'data-tech': 'Data & Tech Capable',
-  'ai-ethics': 'AI Ethics & Responsibility',
+  'ai-ethics-responsibility': 'AI Ethics & Responsibility',
+  'workforce-enablement': 'Workforce Enablement',
+  'leadership-strategy': 'Leadership & Strategy',
+  'governance-policy-risk': 'Governance, Policy & Risk',
+  'foundations-ecosystem': 'Foundations & Ecosystem',
   'default': 'AI Capability'
 };
 
