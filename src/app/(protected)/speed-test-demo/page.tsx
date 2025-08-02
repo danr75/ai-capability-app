@@ -104,7 +104,7 @@ export default function SpeedTestDemoPage() {
           
           {/* Header with blue background */}
           <div className="bg-[#2158F4] text-white rounded-lg p-4 sm:p-6 mb-6">
-            <h1 className="text-2xl sm:text-3xl font-bold">Speed Test - Set {currentSet + 1}</h1>
+            <h1 className="text-2xl sm:text-3xl font-bold">Speed Test: {title}</h1>
             <p className="mt-1">Test your knowledge under time pressure</p>
           </div>
         </div>

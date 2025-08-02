@@ -103,7 +103,7 @@ export default function DataTechPage() {
           </Link>
 
           {/* Speed Test */}
-          <Link href="/speed-test-demo" className="block">
+          <Link href="/speed-test-demo?capability=data-tech" className="block">
             <div className="bg-white rounded-lg shadow-sm p-6 hover:shadow-md transition-shadow h-full">
               <div className="flex items-start mb-4">
                 <div className="bg-blue-100 p-3 rounded-full mr-4">
