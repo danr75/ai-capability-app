@@ -23,7 +23,42 @@ export default function DataTechPage() {
           <p className="text-lg">Build the technical foundation and capabilities for successful AI implementation</p>
         </div>
 
-        {/* Learning modules grid */}
+        {/* Learning Progress Section */}
+        <section className="mb-8">
+          <div className="flex flex-wrap gap-3 justify-center w-full max-w-3xl mx-auto mb-2">
+            {/* Completed */}
+            <div className="px-4 py-2 rounded-full bg-primary text-white text-sm font-semibold shadow-sm transition-colors">Aware</div>
+            <div className="px-4 py-2 rounded-full bg-primary text-white text-sm font-semibold shadow-sm transition-colors">Understand</div>
+            <div className="px-4 py-2 rounded-full bg-primary text-white text-sm font-semibold shadow-sm transition-colors">Apply</div>
+            {/* Next Up */}
+            <div className="relative px-4 py-2 rounded-full bg-yellow-400 text-yellow-900 text-sm font-semibold shadow-sm flex items-center gap-2 transition-colors">
+              Analyze
+              <span className="ml-2 flex items-center text-xs font-bold bg-yellow-200 px-2 py-0.5 rounded-full">
+                Next
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 ml-1" fill="none" viewBox="0 0 20 20" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 5-7 5V5z" /></svg>
+              </span>
+            </div>
+            {/* Locked */}
+            <div className="px-4 py-2 rounded-full border border-gray-300 text-gray-400 bg-white text-sm font-semibold shadow-sm flex items-center gap-2 transition-colors opacity-60 cursor-not-allowed">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M12 11c1.104 0 2-.896 2-2V7a2 2 0 10-4 0v2c0 1.104.896 2 2 2zm6 2v6a2 2 0 01-2 2H8a2 2 0 01-2-2v-6a2 2 0 012-2h8a2 2 0 012 2z" /></svg>
+              Evaluate
+            </div>
+            <div className="px-4 py-2 rounded-full border border-gray-300 text-gray-400 bg-white text-sm font-semibold shadow-sm flex items-center gap-2 transition-colors opacity-60 cursor-not-allowed">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M12 11c1.104 0 2-.896 2-2V7a2 2 0 10-4 0v2c0 1.104.896 2 2 2zm6 2v6a2 2 0 01-2 2H8a2 2 0 01-2-2v-6a2 2 0 012-2h8a2 2 0 012 2z" /></svg>
+              Participate
+            </div>
+          </div>
+          <div className="flex flex-col items-center gap-y-2 mt-4">
+            <div className="flex items-center gap-3">
+              <span className="text-base text-gray-800 font-medium">Your learning progress</span>
+              <span className="bg-blue-100 text-blue-700 text-xs font-semibold px-3 py-1 rounded-full">● On Track</span>
+            </div>
+            <span className="text-xs text-gray-500 font-semibold">50%</span>
+          </div>
+        </section>
+
+        {/* Test your knowledge Section */}
+        <h2 className="text-lg font-semibold text-gray-900 mb-4 mt-8">Test your knowledge</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Quick Refreshers */}
           <Link href="/skills/data-tech/quick-refreshers" className="block">
