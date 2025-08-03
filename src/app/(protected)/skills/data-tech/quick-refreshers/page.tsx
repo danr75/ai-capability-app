@@ -12,6 +12,9 @@ type Question = {
     correct: boolean;
   }[];
   explanation: string;
+  module?: string;
+  lesson?: string;
+  lessonContent?: string;
 };
 
 export default function QuickRefreshersPage() {
@@ -24,7 +27,10 @@ export default function QuickRefreshersPage() {
         { id: "spam", text: "Email Spam filtering", correct: true },
         { id: "rules", text: "Email Rules", correct: false }
       ],
-      explanation: "Email spam filtering uses machine learning to adapt to new patterns."
+      explanation: "Email spam filtering uses machine learning to adapt to new patterns.",
+      module: "High Risk Use Cases",
+      lesson: "AI Applications in Email Security",
+      lessonContent: "Email systems handle sensitive communications and personal data. AI spam filters must balance security with privacy, avoiding false positives that could block important messages while protecting against malicious content."
     },
     {
       id: 2,
@@ -34,7 +40,9 @@ export default function QuickRefreshersPage() {
         { id: "supervised", text: "Supervised learning", correct: true },
         { id: "unsupervised", text: "Unsupervised learning", correct: false }
       ],
-      explanation: "Supervised learning uses labeled data to train models."
+      explanation: "Supervised learning uses labeled data to train models.",
+      module: "Model Training Fundamentals",
+      lesson: "Machine Learning Approaches"
     },
     {
       id: 3,
@@ -44,7 +52,9 @@ export default function QuickRefreshersPage() {
         { id: "transformer", text: "Transformer", correct: true },
         { id: "cnn", text: "Convolutional Neural Network", correct: false }
       ],
-      explanation: "Transformers are designed to handle sequential data like text."
+      explanation: "Transformers are designed to handle sequential data like text.",
+      module: "Large Language Models Explained",
+      lesson: "Neural Network Architectures"
     },
     {
       id: 4,

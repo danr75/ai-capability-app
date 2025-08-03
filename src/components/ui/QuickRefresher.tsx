@@ -13,6 +13,9 @@ export type Question = {
     correct: boolean;
   }[];
   explanation: string;
+  module?: string;
+  lesson?: string;
+  lessonContent?: string;
 };
 
 type QuickRefresherProps = {
@@ -161,120 +164,110 @@ export default function QuickRefresher({
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 text-gray-900">
-      {/* Header navigation */}
-      <div className="max-w-7xl mx-auto pt-6 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto">
+    <div className="min-h-screen bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-5 pb-10">
+        {/* Header with back button */}
+        <div className="mb-4">
           <Link 
             href={backLink}
-            className="inline-flex items-center text-primary hover:text-primary/80 mb-6"
+            className="inline-flex items-center text-primary hover:text-primary/80 transition-colors"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5 mr-1"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                fillRule="evenodd"
-                d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z"
-                clipRule="evenodd"
-              />
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+              <path fillRule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clipRule="evenodd" />
             </svg>
-            Back to {skillArea}
+            {skillArea}
           </Link>
-          
-          {/* Quick Refreshers heading with blue background */}
-          <div className="bg-[#2158F4] text-white rounded-lg p-4 sm:p-6 mb-6">
-            <h1 className="text-2xl sm:text-3xl font-bold">Quick Refreshers</h1>
-            <p className="mt-1">Lesson: {skillArea}</p>
+        </div>
+
+        {/* Main header */}
+        <div className="bg-primary text-white p-6 rounded-lg mb-6">
+          <div className="flex items-center gap-3">
+            <h1 className="text-3xl font-bold">Memory Boost</h1>
           </div>
         </div>
-      </div>
 
-      {/* Main quiz content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
-        {/* Background container */}
-        <div className="max-w-4xl mx-auto bg-[#E5EDFF] rounded-lg shadow-sm mb-8 overflow-hidden">
-          {/* Progress bar */}
-          <div className="p-4">
-            <div className="w-full flex items-center px-4 pb-4 max-w-4xl mx-auto">
-              {/* Left arrow */}
-              <button 
-                className={`text-primary hover:text-primary/80 transition-colors ${
-                  currentQuestionIndex === 0 ? 'opacity-50 cursor-not-allowed' : ''
-                }`}
-                onClick={handlePrevQuestion}
-                disabled={currentQuestionIndex === 0}
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                </svg>
-              </button>
-              
-              {/* Progress dots */}
-              <div className="flex-grow flex justify-center mx-4">
-                <div className="flex w-full justify-between">
-                  {progressDots.map((_, index) => (
-                    <div 
-                      key={index} 
-                      className={`w-12 h-2 rounded-full ${
-                        index <= currentQuestionIndex ? 'bg-[#B681FC]' : 'bg-gray-300'
-                      }`}
-                    />
-                  ))}
-                </div>
+        {/* Progress navigation section */}
+        <section className="bg-blue-50 rounded-lg shadow-sm p-6 mb-6">
+          <div className="flex items-center justify-between">
+            {/* Left arrow */}
+            <button 
+              className={`text-primary hover:text-primary/80 transition-colors ${
+                currentQuestionIndex === 0 ? 'opacity-50 cursor-not-allowed' : ''
+              }`}
+              onClick={handlePrevQuestion}
+              disabled={currentQuestionIndex === 0}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+            
+            {/* Progress dots */}
+            <div className="flex-1 flex justify-center mx-4">
+              <div className="flex gap-2">
+                {progressDots.map((_, index) => (
+                  <div 
+                    key={index} 
+                    className={`w-8 h-2 rounded-full ${
+                      index <= currentQuestionIndex ? 'bg-[#B681FC]' : 'bg-gray-300'
+                    }`}
+                  />
+                ))}
               </div>
-              
-              {/* Right arrow */}
-              <button 
-                className={`text-primary hover:text-primary/80 transition-colors ${
-                  currentQuestionIndex >= maxQuestionReached ? 'opacity-50 cursor-not-allowed' : ''
-                }`}
-                onClick={handleNextQuestion}
-                disabled={currentQuestionIndex >= maxQuestionReached}
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </button>
+            </div>
+            
+            {/* Right arrow */}
+            <button 
+              className={`text-primary hover:text-primary/80 transition-colors ${
+                currentQuestionIndex >= maxQuestionReached ? 'opacity-50 cursor-not-allowed' : ''
+              }`}
+              onClick={handleNextQuestion}
+              disabled={currentQuestionIndex >= maxQuestionReached}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
+        </section>
+
+        {/* Content section */}
+        <section className="bg-blue-50 rounded-lg shadow-sm p-6 mb-8">
+          {/* Module and Lesson info */}
+          <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
+            <div className="text-base text-gray-800">
+              <div className="mb-2">
+                <span className="font-semibold">Module:</span> {currentQuestion.module || 'High Risk Use Cases'}
+              </div>
+              <div className="mb-4">
+                <span className="font-semibold">Lesson:</span> {currentQuestion.lesson || 'Identifying High Risk AI Use Cases'}
+              </div>
+              <div className="text-gray-600">
+                {currentQuestion.lessonContent || 'High risk AI use cases involve critical decisions affecting safety, privacy, or fairness. Identifying these requires evaluating potential harm, regulatory requirements, and societal impact before deployment.'}
+              </div>
             </div>
           </div>
-          
-          <hr className="border-t border-gray-300 mx-6" />
-          
-          {/* Learning tip */}
-          <div className="px-6 py-4">
-            <p className="text-base text-gray-600">
-              {tipText}
-            </p>
-          </div>
 
-          <hr className="border-t border-gray-300 mx-6" />
-          
-          {/* Question */}
-          <div className="px-6 py-6 flex items-center">
-            <p className="text-lg text-gray-800">
+          {/* Question card */}
+          <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
+            <p className="text-lg text-gray-800 mb-6">
               <span className="bg-[#B681FC] text-white px-3 py-1 rounded font-medium">
                 {selectedOption 
                   ? currentQuestion.options.find(option => option.id === selectedOption)?.text
                   : '_______'}
               </span> {currentQuestion.text}
             </p>
-          </div>
-        </div>
-        
-        {/* Options and Check button outside the blue background */}
-        <div className="max-w-4xl mx-auto mt-4">
-          <div className="flex items-center gap-3 px-6">
+            
+            {/* Answer options */}
+            <div className="flex items-center gap-3">
             {currentQuestion.options.map((option, index) => (
               <div 
                 key={option.id}
                 className={`border rounded-lg p-3 flex items-center cursor-pointer transition-all flex-1 ${
-                  selectedOption === option.id && isChecked && option.correct ? 'bg-[#00C48C] border-[#00C48C]/70 text-white font-bold' : 
-                  selectedOption === option.id && isChecked && !option.correct ? 'bg-[#FF5A5F] border-[#FF5A5F]/70 text-white font-bold' :
+                  selectedOption === option.id && isChecked && option.correct ? 'bg-[#DFF6EA] border-[#28C76F] text-[#28C76F] font-bold' : 
+                  selectedOption === option.id && isChecked && !option.correct ? 'bg-[#FDEBEC] border-[#EA5455] text-[#EA5455] font-bold' :
                   selectedOption === option.id ? 'bg-[#4F8BFF] border-[#4F8BFF]/70 text-white' : 
-                  'border-gray-300 hover:border-[#2158F4] hover:shadow-sm'
+                  'bg-white border-[#DFE3E8] text-[#4B4B4B] hover:border-[#CED6E0] hover:shadow-sm'
                 }`}
                 onClick={() => handleOptionSelect(option.id)}
                 onKeyDown={(e) => {
@@ -284,7 +277,12 @@ export default function QuickRefresher({
                 }}
                 tabIndex={0}
               >
-                <span className={`${selectedOption === option.id ? 'bg-white text-[#4F8BFF]' : 'bg-[#B681FC] text-white'} px-2 py-1 rounded-full mr-3 font-medium transition-colors`}>
+                <span className={`${
+                  selectedOption === option.id && isChecked && option.correct ? 'bg-[#28C76F] text-white' :
+                  selectedOption === option.id && isChecked && !option.correct ? 'bg-[#EA5455] text-white' :
+                  selectedOption === option.id ? 'bg-white text-[#4F8BFF]' : 
+                  'bg-[#DFE3E8] text-[#6E6E6E]'
+                } px-2 py-1 rounded-full mr-3 font-medium transition-colors`}>
                   {index + 1}
                 </span>
                 <span className="font-medium text-sm">{option.text}</span>
@@ -302,8 +300,9 @@ export default function QuickRefresher({
             >
               Check
             </button>
+            </div>
           </div>
-        </div>
+        </section>
       </div>
     </div>
   );
