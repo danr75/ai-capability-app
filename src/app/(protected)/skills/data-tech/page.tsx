@@ -4,9 +4,9 @@ import Link from 'next/link';
 export default function DataTechPage() {
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-5 pb-10">
         {/* Header with back button */}
-        <div className="mb-6">
+        <div className="mb-4">
           <Link 
             href="/learning-coach" 
             className="inline-flex items-center text-primary hover:text-primary/80 transition-colors"
@@ -20,17 +20,17 @@ export default function DataTechPage() {
 
         {/* Main header */}
         <div className="bg-primary text-white p-6 rounded-lg mb-6">
-          <div className="flex items-center gap-3 mb-2">
+          <div className="flex items-center gap-3">
             <h1 className="text-3xl font-bold">Data & Tech Capable</h1>
             <span className="bg-blue-100 text-blue-700 text-xs font-semibold px-3 py-1 rounded-full">● On Track</span>
           </div>
-          <p className="text-lg">Build the technical foundation and capabilities for successful AI implementation</p>
         </div>
 
         {/* Modules Section */}
         <div className="mt-8 mb-8">
-          <h2 className="text-xl font-semibold text-gray-900 mb-6">Advance Your Capability: From Aware to Active</h2>
-          <div className="flex items-center gap-4">
+          <h2 className="text-2xl font-bold text-gray-900 mb-6">Advance Your Capability from Aware to Active</h2>
+          <div className="bg-white rounded-lg shadow-sm p-6">
+            <div className="flex items-center gap-4">
             {/* Left Arrow */}
             <button 
               onClick={() => {
@@ -49,10 +49,10 @@ export default function DataTechPage() {
             {/* Scrollable Modules Container */}
             <div id="modules-container" className="flex-1 overflow-x-auto scrollbar-hide">
               {/* Capability Progress Bar - spans full module width */}
-              <div className="mb-4 min-w-max">
-                <div className="relative min-w-max">
-                  <div className="bg-gray-200 rounded-full h-6 flex items-center min-w-max">
-                    <div className="bg-primary h-6 rounded-full transition-all duration-300 flex items-center justify-center relative" style={{width: '50%'}}>
+              <div className="mb-4">
+                <div className="relative">
+                  <div className="bg-gray-200 rounded-full h-6 flex items-center" style={{width: '1600px'}}>
+                    <div className="bg-primary h-6 rounded-full transition-all duration-300 flex items-center justify-end pr-3 relative" style={{width: '50%'}}>
                       <span className="text-xs font-medium text-white">50%</span>
                     </div>
                   </div>
@@ -187,13 +187,13 @@ export default function DataTechPage() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
               </svg>
             </button>
+            </div>
           </div>
         </div>
 
-        {/* Strengthen & Apply Your Knowledge Section */}
+        {/* Reinforce Key Concepts and Apply Your Knowledge Section */}
         <div className="mt-8 mb-6">
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">Strengthen & Apply Your Knowledge</h2>
-          <p className="text-gray-600">Reinforce key concepts and improve retention through targeted practice and real-world application.</p>
+          <h2 className="text-2xl font-bold text-gray-900 mb-6">Reinforce Key Concepts and Apply Your Knowledge</h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Quick Refreshers */}
