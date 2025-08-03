@@ -43,18 +43,22 @@ export default function DataTechPage() {
           </div>
         </div>
 
-        {/* Modules Section */}
-        <CapabilityModules 
-          title="Advance Your Capability from Aware to Active"
-          progress={50}
-          modules={modules}
-        />
+        {/* Blue section wrapper for modules only */}
+        <section className="bg-blue-50 rounded-lg shadow-sm p-6 mb-8">
+          {/* Modules Section */}
+          <CapabilityModules 
+            title="Advance Your Capability from Aware to Active"
+            progress={50}
+            modules={modules}
+          />
+        </section>
 
         {/* Reinforce Key Concepts and Apply Your Knowledge Section */}
-        <div className="mt-8 mb-6">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">Reinforce Key Concepts and Apply Your Knowledge</h2>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <section className="bg-blue-50 rounded-lg shadow-sm p-6">
+          <div className="mb-6">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">Reinforce Key Concepts and Apply Your Knowledge</h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Quick Refreshers */}
           <Link href="/skills/data-tech/quick-refreshers" className="block">
             <div className="bg-white rounded-lg shadow-sm p-6 hover:shadow-md transition-shadow h-full">
@@ -138,7 +142,8 @@ export default function DataTechPage() {
               </div>
             </div>
           </Link>
-        </div>
+          </div>
+        </section>
       </div>
     </div>
   );
