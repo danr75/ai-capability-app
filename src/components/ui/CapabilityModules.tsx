@@ -21,55 +21,60 @@ export default function CapabilityModules({ title, progress, modules }: Capabili
   const progressBarRef = useRef<HTMLDivElement>(null);
   const modulesContainerRef = useRef<HTMLDivElement>(null);
   
-  // Calculate module statuses and progress bar width based on visual position
+  // Use ResizeObserver to detect when modules are fully rendered
   useEffect(() => {
-    const calculateModuleStatuses = () => {
-      if (!progressBarRef.current || !modulesContainerRef.current) return;
+    if (!modulesContainerRef.current) return;
+    
+    const observer = new ResizeObserver(() => {
+      const moduleElements = modulesContainerRef.current?.querySelectorAll('[data-module-index]');
+      if (!moduleElements || moduleElements.length === 0) return;
       
-      const moduleElements = modulesContainerRef.current.querySelectorAll('[data-module-index]');
-      if (moduleElements.length === 0) return;
+      // Calculate width only once when modules are stable
+      if (progressBarWidth === 1600) {
+        const firstModuleRect = moduleElements[0].getBoundingClientRect();
+        const lastModuleRect = moduleElements[moduleElements.length - 1].getBoundingClientRect();
+        const totalWidth = (lastModuleRect.left + lastModuleRect.width) - firstModuleRect.left;
+        setProgressBarWidth(totalWidth);
+      }
+    });
+    
+    observer.observe(modulesContainerRef.current);
+    
+    return () => observer.disconnect();
+  }, [progressBarWidth]);
+  
+  // Calculate module statuses using visual position
+  useEffect(() => {
+    if (!progressBarRef.current || progressBarWidth === 1600) return;
+    
+    const progressBarRect = progressBarRef.current.getBoundingClientRect();
+    const progressBarEndX = progressBarRect.left + (progressBarWidth * progress / 100);
+    
+    const moduleElements = modulesContainerRef.current?.querySelectorAll('[data-module-index]');
+    if (!moduleElements) return;
+    
+    const statuses: ('done' | 'ready' | 'locked')[] = [];
+    let firstRightModule = -1;
+    
+    moduleElements.forEach((element, index) => {
+      const moduleRect = element.getBoundingClientRect();
+      const moduleCenterX = moduleRect.left + (moduleRect.width / 2);
       
-      // Calculate progress bar width to span from first to last module
-      const firstModuleRect = moduleElements[0].getBoundingClientRect();
-      const lastModuleRect = moduleElements[moduleElements.length - 1].getBoundingClientRect();
-      const containerRect = modulesContainerRef.current.getBoundingClientRect();
-      
-      const totalWidth = (lastModuleRect.left + lastModuleRect.width) - firstModuleRect.left;
-      setProgressBarWidth(totalWidth);
-      
-      // Calculate progress bar end position
-      const progressBarRect = progressBarRef.current.getBoundingClientRect();
-      const progressBarEndX = progressBarRect.left + (progressBarRect.width * progress / 100);
-      
-      const statuses: ('done' | 'ready' | 'locked')[] = [];
-      let firstRightModule = -1;
-      
-      moduleElements.forEach((element, index) => {
-        const moduleRect = element.getBoundingClientRect();
-        const moduleStartX = moduleRect.left;
-        
-        // If module starts to the left of progress bar end
-        if (moduleStartX < progressBarEndX) {
-          statuses[index] = 'done'; // Green - completed
+      // If module center is to the left of progress bar end
+      if (moduleCenterX < progressBarEndX) {
+        statuses[index] = 'done'; // Green - completed
+      } else {
+        if (firstRightModule === -1) {
+          firstRightModule = index;
+          statuses[index] = 'ready'; // Blue - next to do
         } else {
-          // First module to the right of progress bar
-          if (firstRightModule === -1) {
-            firstRightModule = index;
-            statuses[index] = 'ready'; // Blue - next to do
-          } else {
-            statuses[index] = 'locked'; // Gray - locked
-          }
+          statuses[index] = 'locked'; // Gray - locked
         }
-      });
-      
-      setModuleStatuses(statuses);
-    };
+      }
+    });
     
-    // Calculate on mount and when progress changes
-    const timer = setTimeout(calculateModuleStatuses, 100); // Small delay for DOM to render
-    
-    return () => clearTimeout(timer);
-  }, [progress]);
+    setModuleStatuses(statuses);
+  }, [progress, progressBarWidth]);
   
   const getModuleStatus = (index: number) => {
     return moduleStatuses[index] || 'locked';
