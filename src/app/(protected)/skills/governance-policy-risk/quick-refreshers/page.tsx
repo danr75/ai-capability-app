@@ -12,6 +12,9 @@ type Question = {
     correct: boolean;
   }[];
   explanation: string;
+  module?: string;
+  lesson?: string;
+  lessonContent?: string;
 };
 
 export default function QuickRefreshersPage() {

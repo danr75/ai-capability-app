@@ -12,6 +12,9 @@ type Question = {
     correct: boolean;
   }[];
   explanation: string;
+  module?: string;
+  lesson?: string;
+  lessonContent?: string;
 };
 
 export default function QuickRefreshersPage() {
@@ -24,7 +27,10 @@ export default function QuickRefreshersPage() {
         { id: "adaptive", text: "Adaptive leadership", correct: true },
         { id: "transactional", text: "Transactional leadership", correct: false }
       ],
-      explanation: "Adaptive leadership focuses on flexibility and responsiveness to changing conditions."
+      explanation: "Adaptive leadership focuses on flexibility and responsiveness to changing conditions.",
+      module: "Leadership & Strategy",
+      lesson: "AI-Driven Leadership Approaches",
+      lessonContent: "Effective AI leadership requires adapting to rapid technological changes while maintaining strategic vision. Leaders must balance innovation with risk management to guide successful AI transformations."
     },
     {
       id: 2,
