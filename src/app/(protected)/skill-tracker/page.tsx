@@ -1,5 +1,7 @@
 "use client";
 
+import Link from 'next/link';
+
 export default function SkillTrackerPage() {
   return (
     <div className="min-h-screen bg-gray-50">
@@ -54,7 +56,7 @@ export default function SkillTrackerPage() {
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Weekly Progress Card */}
-            <div className="bg-blue-50 rounded-lg shadow-sm p-6 text-center">
+            <div className="bg-white rounded-lg shadow-sm p-6 text-center">
               <h3 className="text-gray-600 mb-2">Weekly Progress</h3>
               <div className="flex items-center justify-center">
                 <span className="text-4xl font-bold text-primary">3%</span>
@@ -78,16 +80,18 @@ export default function SkillTrackerPage() {
             </div>
 
             {/* Needs Attention Card */}
-            <div className="bg-red-50 rounded-lg shadow-sm p-6 text-center">
-              <h3 className="text-gray-600 mb-2">Needs Attention</h3>
-              <div className="flex items-center justify-center">
-                <span className="text-4xl font-bold text-red-500">-5%</span>
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-red-500 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 17h8m0 0v-8m0 8l-8-8-4 4-6-6" />
-                </svg>
+            <Link href="/skills/foundations-ecosystem" className="block">
+              <div className="bg-red-50 rounded-lg shadow-sm p-6 text-center hover:shadow-md hover:bg-red-100 transition-all duration-200 cursor-pointer">
+                <h3 className="text-gray-600 mb-2">Needs Attention</h3>
+                <div className="flex items-center justify-center">
+                  <span className="text-4xl font-bold text-red-500">-5%</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-red-500 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 17h8m0 0v-8m0 8l-8-8-4 4-6-6" />
+                  </svg>
+                </div>
+                <p className="text-gray-600 mt-2">Foundations</p>
               </div>
-              <p className="text-gray-600 mt-2">Foundations</p>
-            </div>
+            </Link>
           </div>
         </section>
         
@@ -97,130 +101,142 @@ export default function SkillTrackerPage() {
           
           <div className="space-y-8">
             {/* Leadership & Strategy */}
-            <div>
-              <div className="flex items-center mb-2">
-                <span className="font-medium text-gray-700">Leadership & Strategy</span>
-                <span className="ml-2 px-2 py-0.5 bg-blue-100 text-blue-800 text-xs rounded-full flex items-center">
-                  <span className="w-1.5 h-1.5 bg-blue-800 rounded-full mr-1"></span>
-                  On Track
-                </span>
-              </div>
-              <div className="relative">
-                <div className="h-4 bg-gray-200 rounded-full"></div>
-                <div className="absolute top-0 left-0 h-4 bg-primary rounded-l-full" style={{ width: '85%' }}>
-                  <span className="absolute right-0 -top-6 text-xs font-medium text-primary">85%</span>
+            <Link href="/skills/leadership-strategy" className="block">
+              <div className="bg-white rounded-lg shadow-sm p-6 hover:shadow-md hover:bg-gray-50 transition-all duration-200 cursor-pointer">
+                <div className="flex items-center mb-2">
+                  <span className="font-medium text-gray-700">Leadership & Strategy</span>
+                  <span className="ml-2 px-2 py-0.5 bg-blue-100 text-blue-800 text-xs rounded-full flex items-center">
+                    <span className="w-1.5 h-1.5 bg-blue-800 rounded-full mr-1"></span>
+                    On Track
+                  </span>
+                </div>
+                <div className="relative">
+                  <div className="h-4 bg-gray-200 rounded-full"></div>
+                  <div className="absolute top-0 left-0 h-4 bg-primary rounded-l-full" style={{ width: '85%' }}>
+                    <span className="absolute right-0 -top-6 text-xs font-medium text-primary">85%</span>
+                  </div>
+                </div>
+                <div className="flex justify-between mt-1 text-xs text-gray-500">
+                  <div>Aware</div>
+                  <div className="ml-auto">Participate</div>
                 </div>
               </div>
-              <div className="flex justify-between mt-1 text-xs text-gray-500">
-                <div>Aware</div>
-                <div className="ml-auto">Participate</div>
-              </div>
-            </div>
+            </Link>
             
             {/* Governance, Policy & Risk */}
-            <div>
-              <div className="flex items-center mb-2">
-                <span className="font-medium text-gray-700">Governance, Policy & Risk</span>
-                <span className="ml-2 px-2 py-0.5 bg-blue-100 text-blue-800 text-xs rounded-full flex items-center">
-                  <span className="w-1.5 h-1.5 bg-blue-800 rounded-full mr-1"></span>
-                  On Track
-                </span>
-              </div>
-              <div className="relative">
+            <Link href="/skills/governance-policy-risk" className="block">
+              <div className="bg-white rounded-lg shadow-sm p-6 hover:shadow-md hover:bg-gray-50 transition-all duration-200 cursor-pointer">
+                <div className="flex items-center mb-2">
+                  <span className="font-medium text-gray-700">Governance, Policy & Risk</span>
+                  <span className="ml-2 px-2 py-0.5 bg-blue-100 text-blue-800 text-xs rounded-full flex items-center">
+                    <span className="w-1.5 h-1.5 bg-blue-800 rounded-full mr-1"></span>
+                    On Track
+                  </span>
+                </div>
+                <div className="relative">
                 <div className="h-4 bg-gray-200 rounded-full"></div>
                 <div className="absolute top-0 left-0 h-4 bg-primary rounded-l-full" style={{ width: '60%' }}>
                   <span className="absolute right-0 -top-6 text-xs font-medium text-primary">60%</span>
                 </div>
               </div>
-              <div className="flex justify-between mt-1 text-xs text-gray-500">
-                <div>Aware</div>
-                <div className="ml-auto">Participate</div>
+                <div className="flex justify-between mt-1 text-xs text-gray-500">
+                  <div>Aware</div>
+                  <div className="ml-auto">Participate</div>
+                </div>
               </div>
-            </div>
+            </Link>
             
             {/* Foundations & Ecosystem */}
-            <div>
-              <div className="flex items-center mb-2">
-                <span className="font-medium text-gray-700">Foundations & Ecosystem</span>
-                <span className="ml-2 px-2 py-0.5 bg-red-100 text-red-800 text-xs rounded-full flex items-center">
-                  <span className="w-1.5 h-1.5 bg-red-800 rounded-full mr-1"></span>
-                  Needs Attention
-                </span>
-              </div>
-              <div className="relative">
-                <div className="h-4 bg-gray-200 rounded-full"></div>
-                <div className="absolute top-0 left-0 h-4 bg-primary rounded-l-full" style={{ width: '30%' }}>
-                  <span className="absolute right-0 -top-6 text-xs font-medium text-primary">30%</span>
+            <Link href="/skills/foundations-ecosystem" className="block">
+              <div className="bg-white rounded-lg shadow-sm p-6 hover:shadow-md hover:bg-gray-50 transition-all duration-200 cursor-pointer">
+                <div className="flex items-center mb-2">
+                  <span className="font-medium text-gray-700">Foundations & Ecosystem</span>
+                  <span className="ml-2 px-2 py-0.5 bg-red-100 text-red-800 text-xs rounded-full flex items-center">
+                    <span className="w-1.5 h-1.5 bg-red-800 rounded-full mr-1"></span>
+                    Needs Attention
+                  </span>
+                </div>
+                <div className="relative">
+                  <div className="h-4 bg-gray-200 rounded-full"></div>
+                  <div className="absolute top-0 left-0 h-4 bg-primary rounded-l-full" style={{ width: '30%' }}>
+                    <span className="absolute right-0 -top-6 text-xs font-medium text-primary">30%</span>
+                  </div>
+                </div>
+                <div className="flex justify-between mt-1 text-xs text-gray-500">
+                  <div>Aware</div>
+                  <div className="ml-auto">Participate</div>
                 </div>
               </div>
-              <div className="flex justify-between mt-1 text-xs text-gray-500">
-                <div>Aware</div>
-                <div className="ml-auto">Participate</div>
-              </div>
-            </div>
+            </Link>
             
             {/* Workforce Enablement */}
-            <div>
-              <div className="flex items-center mb-2">
-                <span className="font-medium text-gray-700">Workforce Enablement</span>
-                <span className="ml-2 px-2 py-0.5 bg-green-100 text-green-800 text-xs rounded-full flex items-center">
-                  <span className="w-1.5 h-1.5 bg-green-800 rounded-full mr-1"></span>
-                  Excelling
-                </span>
-              </div>
-              <div className="relative">
-                <div className="h-4 bg-gray-200 rounded-full"></div>
-                <div className="absolute top-0 left-0 h-4 bg-primary rounded-l-full" style={{ width: '63%' }}>
-                  <span className="absolute right-0 -top-6 text-xs font-medium text-primary">63%</span>
+            <Link href="/skills/workforce-enablement" className="block">
+              <div className="bg-white rounded-lg shadow-sm p-6 hover:shadow-md hover:bg-gray-50 transition-all duration-200 cursor-pointer">
+                <div className="flex items-center mb-2">
+                  <span className="font-medium text-gray-700">Workforce Enablement</span>
+                  <span className="ml-2 px-2 py-0.5 bg-green-100 text-green-800 text-xs rounded-full flex items-center">
+                    <span className="w-1.5 h-1.5 bg-green-800 rounded-full mr-1"></span>
+                    Excelling
+                  </span>
+                </div>
+                <div className="relative">
+                  <div className="h-4 bg-gray-200 rounded-full"></div>
+                  <div className="absolute top-0 left-0 h-4 bg-primary rounded-l-full" style={{ width: '63%' }}>
+                    <span className="absolute right-0 -top-6 text-xs font-medium text-primary">63%</span>
+                  </div>
+                </div>
+                <div className="flex justify-between mt-1 text-xs text-gray-500">
+                  <div>Aware</div>
+                  <div className="ml-auto">Participate</div>
                 </div>
               </div>
-              <div className="flex justify-between mt-1 text-xs text-gray-500">
-                <div>Aware</div>
-                <div className="ml-auto">Participate</div>
-              </div>
-            </div>
+            </Link>
             
             {/* Data & Tech Capable */}
-            <div>
-              <div className="flex items-center mb-2">
-                <span className="font-medium text-gray-700">Data & Tech Capable</span>
-                <span className="ml-2 px-2 py-0.5 bg-blue-100 text-blue-800 text-xs rounded-full flex items-center">
-                  <span className="w-1.5 h-1.5 bg-blue-800 rounded-full mr-1"></span>
-                  On Track
-                </span>
-              </div>
-              <div className="relative">
-                <div className="h-4 bg-gray-200 rounded-full"></div>
-                <div className="absolute top-0 left-0 h-4 bg-primary rounded-l-full" style={{ width: '50%' }}>
-                  <span className="absolute right-0 -top-6 text-xs font-medium text-primary">50%</span>
+            <Link href="/skills/data-tech" className="block">
+              <div className="bg-white rounded-lg shadow-sm p-6 hover:shadow-md hover:bg-gray-50 transition-all duration-200 cursor-pointer">
+                <div className="flex items-center mb-2">
+                  <span className="font-medium text-gray-700">Data & Tech Capable</span>
+                  <span className="ml-2 px-2 py-0.5 bg-blue-100 text-blue-800 text-xs rounded-full flex items-center">
+                    <span className="w-1.5 h-1.5 bg-blue-800 rounded-full mr-1"></span>
+                    On Track
+                  </span>
+                </div>
+                <div className="relative">
+                  <div className="h-4 bg-gray-200 rounded-full"></div>
+                  <div className="absolute top-0 left-0 h-4 bg-primary rounded-l-full" style={{ width: '50%' }}>
+                    <span className="absolute right-0 -top-6 text-xs font-medium text-primary">50%</span>
+                  </div>
+                </div>
+                <div className="flex justify-between mt-1 text-xs text-gray-500">
+                  <div>Aware</div>
+                  <div className="ml-auto">Participate</div>
                 </div>
               </div>
-              <div className="flex justify-between mt-1 text-xs text-gray-500">
-                <div>Aware</div>
-                <div className="ml-auto">Participate</div>
-              </div>
-            </div>
+            </Link>
             
             {/* AI Ethics and Responsibility */}
-            <div>
-              <div className="flex items-center mb-2">
-                <span className="font-medium text-gray-700">AI Ethics and Responsibility</span>
-                <span className="ml-2 px-2 py-0.5 bg-blue-100 text-blue-800 text-xs rounded-full flex items-center">
-                  <span className="w-1.5 h-1.5 bg-blue-800 rounded-full mr-1"></span>
-                  On Track
-                </span>
-              </div>
-              <div className="relative">
-                <div className="h-4 bg-gray-200 rounded-full"></div>
-                <div className="absolute top-0 left-0 h-4 bg-primary rounded-l-full" style={{ width: '45%' }}>
-                  <span className="absolute right-0 -top-6 text-xs font-medium text-primary">45%</span>
+            <Link href="/skills/ai-ethics-responsibility" className="block">
+              <div className="bg-white rounded-lg shadow-sm p-6 hover:shadow-md hover:bg-gray-50 transition-all duration-200 cursor-pointer">
+                <div className="flex items-center mb-2">
+                  <span className="font-medium text-gray-700">AI Ethics and Responsibility</span>
+                  <span className="ml-2 px-2 py-0.5 bg-blue-100 text-blue-800 text-xs rounded-full flex items-center">
+                    <span className="w-1.5 h-1.5 bg-blue-800 rounded-full mr-1"></span>
+                    On Track
+                  </span>
+                </div>
+                <div className="relative">
+                  <div className="h-4 bg-gray-200 rounded-full"></div>
+                  <div className="absolute top-0 left-0 h-4 bg-primary rounded-l-full" style={{ width: '45%' }}>
+                    <span className="absolute right-0 -top-6 text-xs font-medium text-primary">45%</span>
+                  </div>
+                </div>
+                <div className="flex justify-between mt-1 text-xs text-gray-500">
+                  <div>Aware</div>
+                  <div className="ml-auto">Participate</div>
                 </div>
               </div>
-              <div className="flex justify-between mt-1 text-xs text-gray-500">
-                <div>Aware</div>
-                <div className="ml-auto">Participate</div>
-              </div>
-            </div>
+            </Link>
           </div>
         </section>
       </div>
