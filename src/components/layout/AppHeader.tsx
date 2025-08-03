@@ -17,7 +17,8 @@ type AppHeaderProps = {
 
 const navItems = [
   { name: 'Learning Coach', path: '/learning-coach' },
-  { name: 'Daily Feed', path: '/daily-feed' },
+  // TODO: Daily Feed will be added back in future release
+  // { name: 'Daily Feed', path: '/daily-feed' },
   { name: 'Skill Tracker', path: '/skill-tracker' },
 ];
 
