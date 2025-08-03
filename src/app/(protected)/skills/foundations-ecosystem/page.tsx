@@ -1,6 +1,22 @@
 import Link from 'next/link';
+import { CapabilityModules } from '@/components/ui';
 
 export default function FoundationsEcosystemPage() {
+  // Sample modules data for Foundations & Ecosystem
+  const modules = [
+    { id: '1', title: 'AI Fundamentals', status: 'done' as const, icon: 'check' as const },
+    { id: '2', title: 'Machine Learning Basics', status: 'done' as const, icon: 'check' as const },
+    { id: '3', title: 'Technology Stack', status: 'done' as const, icon: 'check' as const },
+    { id: '4', title: 'Data Infrastructure', status: 'done' as const, icon: 'check' as const },
+    { id: '5', title: 'Cloud Platforms', status: 'done' as const, icon: 'check' as const },
+    { id: '6', title: 'Integration Patterns', status: 'done' as const, icon: 'check' as const },
+    { id: '7', title: 'Ecosystem Design', status: 'ready' as const, icon: 'lightning' as const },
+    { id: '8', title: 'Vendor Selection', status: 'locked' as const, icon: 'lock' as const },
+    { id: '9', title: 'Architecture Planning', status: 'locked' as const, icon: 'lock' as const },
+    { id: '10', title: 'Scalability Patterns', status: 'locked' as const, icon: 'lock' as const },
+    { id: '11', title: 'Security Frameworks', status: 'locked' as const, icon: 'lock' as const },
+    { id: '12', title: 'Future Roadmapping', status: 'locked' as const, icon: 'lock' as const },
+  ];
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -19,11 +35,23 @@ export default function FoundationsEcosystemPage() {
 
         {/* Main header */}
         <div className="bg-primary text-white p-6 rounded-lg mb-6">
-          <h1 className="text-3xl font-bold mb-2">Foundations & Ecosystem</h1>
-          <p className="text-lg">Understand core AI concepts and build a robust technology ecosystem</p>
+          <div className="flex items-center gap-3">
+            <h1 className="text-3xl font-bold">Foundations & Ecosystem Capable</h1>
+            <span className="bg-green-100 text-green-700 text-xs font-semibold px-3 py-1 rounded-full">● Excelling</span>
+          </div>
         </div>
 
-        {/* Learning modules grid */}
+        {/* Modules Section */}
+        <CapabilityModules 
+          title="Advance Your Capability from Aware to Active"
+          progress={50}
+          modules={modules}
+        />
+
+        {/* Reinforce Key Concepts and Apply Your Knowledge Section */}
+        <div className="mt-8 mb-6">
+          <h2 className="text-2xl font-bold text-gray-900 mb-6">Reinforce Key Concepts and Apply Your Knowledge</h2>
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Quick Refreshers */}
           <Link href="/skills/foundations-ecosystem/quick-refreshers" className="block">
@@ -36,10 +64,10 @@ export default function FoundationsEcosystemPage() {
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                    Quick Refreshers
+                    Memory Boost
                   </h3>
                   <p className="text-sm text-gray-600">
-                    5-10 minute learning bursts on AI foundations and ecosystem concepts
+                    Strengthen memory with tailored review of weaker areas and essential concepts.
                   </p>
                 </div>
               </div>
@@ -57,10 +85,10 @@ export default function FoundationsEcosystemPage() {
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                    Scenario Challenges
+                    Common Scenarios
                   </h3>
                   <p className="text-sm text-gray-600">
-                    Apply your skills to realistic foundational AI scenarios
+                    Apply what you've learned in realistic, practical foundations & ecosystem situations.
                   </p>
                 </div>
               </div>
@@ -81,7 +109,7 @@ export default function FoundationsEcosystemPage() {
                     Speed Test
                   </h3>
                   <p className="text-sm text-gray-600">
-                    Test your knowledge under time pressure with quick quizzes
+                    Sharpen your knowledge under time pressure with concept-focused quizzes.
                   </p>
                 </div>
               </div>
@@ -99,10 +127,10 @@ export default function FoundationsEcosystemPage() {
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                    Real-World Assessment
+                    Real-World Simulation
                   </h3>
                   <p className="text-sm text-gray-600">
-                    Apply your skills to realistic AI ecosystem scenarios
+                    Test your skills with realistic scenarios that reflect job-relevant applications.
                   </p>
                 </div>
               </div>

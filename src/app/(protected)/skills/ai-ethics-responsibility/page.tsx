@@ -1,6 +1,22 @@
 import Link from 'next/link';
+import { CapabilityModules } from '@/components/ui';
 
 export default function AIEthicsResponsibilityPage() {
+  // Sample modules data for AI Ethics & Responsibility
+  const modules = [
+    { id: '1', title: 'Ethical AI Principles', status: 'done' as const, icon: 'check' as const },
+    { id: '2', title: 'Bias Detection', status: 'done' as const, icon: 'check' as const },
+    { id: '3', title: 'Fairness Frameworks', status: 'done' as const, icon: 'check' as const },
+    { id: '4', title: 'Privacy Protection', status: 'done' as const, icon: 'check' as const },
+    { id: '5', title: 'Transparency Standards', status: 'done' as const, icon: 'check' as const },
+    { id: '6', title: 'Accountability Measures', status: 'done' as const, icon: 'check' as const },
+    { id: '7', title: 'Impact Assessment', status: 'ready' as const, icon: 'lightning' as const },
+    { id: '8', title: 'Stakeholder Engagement', status: 'locked' as const, icon: 'lock' as const },
+    { id: '9', title: 'Regulatory Compliance', status: 'locked' as const, icon: 'lock' as const },
+    { id: '10', title: 'Ethical Review Boards', status: 'locked' as const, icon: 'lock' as const },
+    { id: '11', title: 'Continuous Monitoring', status: 'locked' as const, icon: 'lock' as const },
+    { id: '12', title: 'Crisis Response', status: 'locked' as const, icon: 'lock' as const },
+  ];
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -19,11 +35,23 @@ export default function AIEthicsResponsibilityPage() {
 
         {/* Main header */}
         <div className="bg-primary text-white p-6 rounded-lg mb-6">
-          <h1 className="text-3xl font-bold mb-2">AI Ethics & Responsibility</h1>
-          <p className="text-lg">Develop frameworks for ethical AI implementation and responsible innovation</p>
+          <div className="flex items-center gap-3">
+            <h1 className="text-3xl font-bold">AI Ethics & Responsibility Capable</h1>
+            <span className="bg-blue-100 text-blue-700 text-xs font-semibold px-3 py-1 rounded-full">● On Track</span>
+          </div>
         </div>
 
-        {/* Learning modules grid */}
+        {/* Modules Section */}
+        <CapabilityModules 
+          title="Advance Your Capability from Aware to Active"
+          progress={50}
+          modules={modules}
+        />
+
+        {/* Reinforce Key Concepts and Apply Your Knowledge Section */}
+        <div className="mt-8 mb-6">
+          <h2 className="text-2xl font-bold text-gray-900 mb-6">Reinforce Key Concepts and Apply Your Knowledge</h2>
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Quick Refreshers */}
           <Link href="/skills/ai-ethics-responsibility/quick-refreshers" className="block">
@@ -36,10 +64,10 @@ export default function AIEthicsResponsibilityPage() {
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                    Quick Refreshers
+                    Memory Boost
                   </h3>
                   <p className="text-sm text-gray-600">
-                    5-10 minute learning bursts on ethical principles for responsible AI
+                    Strengthen memory with tailored review of weaker areas and essential concepts.
                   </p>
                 </div>
               </div>
@@ -57,10 +85,10 @@ export default function AIEthicsResponsibilityPage() {
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                    Scenario Challenges
+                    Common Scenarios
                   </h3>
                   <p className="text-sm text-gray-600">
-                    Apply your skills to realistic AI ethics scenarios
+                    Apply what you've learned in realistic, practical AI ethics & responsibility situations.
                   </p>
                 </div>
               </div>
@@ -81,7 +109,7 @@ export default function AIEthicsResponsibilityPage() {
                     Speed Test
                   </h3>
                   <p className="text-sm text-gray-600">
-                    Test your knowledge under time pressure with quick quizzes
+                    Sharpen your knowledge under time pressure with concept-focused quizzes.
                   </p>
                 </div>
               </div>
@@ -99,10 +127,10 @@ export default function AIEthicsResponsibilityPage() {
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                    Real-World Assessment
+                    Real-World Simulation
                   </h3>
                   <p className="text-sm text-gray-600">
-                    Apply your skills to realistic ethical AI scenarios
+                    Test your skills with realistic scenarios that reflect job-relevant applications.
                   </p>
                 </div>
               </div>
