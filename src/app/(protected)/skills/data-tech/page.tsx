@@ -1,7 +1,24 @@
 'use client';
 import Link from 'next/link';
+import { CapabilityModules } from '@/components/ui';
 
 export default function DataTechPage() {
+  // Define modules data - status will be calculated based on progress
+  const modules = [
+    { id: '1', title: 'High Risk Use Cases', status: 'done' as const, icon: 'check' as const },
+    { id: '2', title: 'What are Tokens', status: 'done' as const, icon: 'check' as const },
+    { id: '3', title: 'Large Language Models Explained', status: 'done' as const, icon: 'check' as const },
+    { id: '4', title: 'Data Pipeline Architecture', status: 'done' as const, icon: 'check' as const },
+    { id: '5', title: 'Model Training Fundamentals', status: 'done' as const, icon: 'check' as const },
+    { id: '6', title: 'What are AI agents', status: 'done' as const, icon: 'check' as const },
+    { id: '7', title: 'AI Agent Risks', status: 'ready' as const, icon: 'lightning' as const },
+    { id: '8', title: 'Use Case Identification', status: 'locked' as const, icon: 'lock' as const },
+    { id: '9', title: 'API Integration Patterns', status: 'locked' as const, icon: 'lock' as const },
+    { id: '10', title: 'Performance Optimization', status: 'locked' as const, icon: 'lock' as const },
+    { id: '11', title: 'Neural Network Basics', status: 'locked' as const, icon: 'lock' as const },
+    { id: '12', title: 'Computer Vision Basics', status: 'locked' as const, icon: 'lock' as const }
+  ];
+
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-5 pb-10">
@@ -27,169 +44,11 @@ export default function DataTechPage() {
         </div>
 
         {/* Modules Section */}
-        <div className="mt-8 mb-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">Advance Your Capability from Aware to Active</h2>
-          <div className="bg-white rounded-lg shadow-sm p-6">
-            <div className="flex items-center gap-4">
-            {/* Left Arrow */}
-            <button 
-              onClick={() => {
-                const container = document.getElementById('modules-container');
-                if (container) {
-                  container.scrollBy({ left: -200, behavior: 'smooth' });
-                }
-              }}
-              className="flex-shrink-0 w-8 h-8 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center transition-colors"
-            >
-              <svg className="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7"></path>
-              </svg>
-            </button>
-
-            {/* Scrollable Modules Container */}
-            <div id="modules-container" className="flex-1 overflow-x-auto scrollbar-hide">
-              {/* Capability Progress Bar - spans full module width */}
-              <div className="mb-4">
-                <div className="relative">
-                  <div className="bg-gray-200 rounded-full h-6 flex items-center" style={{width: '1600px'}}>
-                    <div className="bg-primary h-6 rounded-full transition-all duration-300 flex items-center justify-end pr-3 relative" style={{width: '50%'}}>
-                      <span className="text-xs font-medium text-white">50%</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="space-y-4">
-                {/* First row */}
-                <div className="flex gap-3 min-w-max">
-                  <div className="flex items-center gap-3 px-4 py-2 bg-green-50 rounded-full border border-green-200">
-                    <div className="w-5 h-5 bg-green-500 rounded-full flex items-center justify-center">
-                      <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                      </svg>
-                    </div>
-                    <span className="text-sm font-medium text-green-700">High Risk Use Cases</span>
-                  </div>
-                  <div className="flex items-center gap-3 px-4 py-2 bg-green-50 rounded-full border border-green-200">
-                    <div className="w-5 h-5 bg-green-500 rounded-full flex items-center justify-center">
-                      <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                      </svg>
-                    </div>
-                    <span className="text-sm font-medium text-green-700">What are Tokens</span>
-                  </div>
-                  <div className="flex items-center gap-3 px-4 py-2 bg-green-50 rounded-full border border-green-200">
-                    <div className="w-5 h-5 bg-green-500 rounded-full flex items-center justify-center">
-                      <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                      </svg>
-                    </div>
-                    <span className="text-sm font-medium text-green-700">Large Language Models Explained</span>
-                  </div>
-                  <div className="flex items-center gap-3 px-4 py-2 bg-blue-50 rounded-full border border-blue-200">
-                    <div className="w-5 h-5 bg-blue-500 rounded-full flex items-center justify-center">
-                      <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                      </svg>
-                    </div>
-                    <span className="text-sm font-medium text-blue-700">Data Pipeline Architecture</span>
-                  </div>
-                  <div className="flex items-center gap-3 px-4 py-2 bg-gray-50 rounded-full border border-gray-200 opacity-60">
-                    <div className="w-5 h-5 bg-gray-300 rounded-full flex items-center justify-center">
-                      <svg className="w-3 h-3 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
-                      </svg>
-                    </div>
-                    <span className="text-sm font-medium text-gray-500">Model Training Fundamentals</span>
-                  </div>
-                  <div className="flex items-center gap-3 px-4 py-2 bg-gray-50 rounded-full border border-gray-200 opacity-60">
-                    <div className="w-5 h-5 bg-gray-300 rounded-full flex items-center justify-center">
-                      <svg className="w-3 h-3 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
-                      </svg>
-                    </div>
-                    <span className="text-sm font-medium text-gray-500">Deep Learning Concepts</span>
-                  </div>
-                </div>
-                
-                {/* Second row */}
-                <div className="flex gap-3 min-w-max">
-                  <div className="flex items-center gap-3 px-4 py-2 bg-green-50 rounded-full border border-green-200">
-                    <div className="w-5 h-5 bg-green-500 rounded-full flex items-center justify-center">
-                      <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                      </svg>
-                    </div>
-                    <span className="text-sm font-medium text-green-700">What are AI agents</span>
-                  </div>
-                  <div className="flex items-center gap-3 px-4 py-2 bg-green-50 rounded-full border border-green-200">
-                    <div className="w-5 h-5 bg-green-500 rounded-full flex items-center justify-center">
-                      <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                      </svg>
-                    </div>
-                    <span className="text-sm font-medium text-green-700">AI Agent Risks</span>
-                  </div>
-                  <div className="flex items-center gap-3 px-4 py-2 bg-green-50 rounded-full border border-green-200">
-                    <div className="w-5 h-5 bg-green-500 rounded-full flex items-center justify-center">
-                      <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                      </svg>
-                    </div>
-                    <span className="text-sm font-medium text-green-700">Use Case Identification</span>
-                  </div>
-                  <div className="flex items-center gap-3 px-4 py-2 bg-gray-50 rounded-full border border-gray-200 opacity-60">
-                    <div className="w-5 h-5 bg-gray-300 rounded-full flex items-center justify-center">
-                      <svg className="w-3 h-3 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
-                      </svg>
-                    </div>
-                    <span className="text-sm font-medium text-gray-500">API Integration Patterns</span>
-                  </div>
-                  <div className="flex items-center gap-3 px-4 py-2 bg-gray-50 rounded-full border border-gray-200 opacity-60">
-                    <div className="w-5 h-5 bg-gray-300 rounded-full flex items-center justify-center">
-                      <svg className="w-3 h-3 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
-                      </svg>
-                    </div>
-                    <span className="text-sm font-medium text-gray-500">Performance Optimization</span>
-                  </div>
-                  <div className="flex items-center gap-3 px-4 py-2 bg-gray-50 rounded-full border border-gray-200 opacity-60">
-                    <div className="w-5 h-5 bg-gray-300 rounded-full flex items-center justify-center">
-                      <svg className="w-3 h-3 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
-                      </svg>
-                    </div>
-                    <span className="text-sm font-medium text-gray-500">Neural Network Basics</span>
-                  </div>
-                  <div className="flex items-center gap-3 px-4 py-2 bg-gray-50 rounded-full border border-gray-200 opacity-60">
-                    <div className="w-5 h-5 bg-gray-300 rounded-full flex items-center justify-center">
-                      <svg className="w-3 h-3 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
-                      </svg>
-                    </div>
-                    <span className="text-sm font-medium text-gray-500">Computer Vision Basics</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Right Arrow */}
-            <button 
-              onClick={() => {
-                const container = document.getElementById('modules-container');
-                if (container) {
-                  container.scrollBy({ left: 200, behavior: 'smooth' });
-                }
-              }}
-              className="flex-shrink-0 w-8 h-8 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center transition-colors"
-            >
-              <svg className="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
-              </svg>
-            </button>
-            </div>
-          </div>
-        </div>
+        <CapabilityModules 
+          title="Advance Your Capability from Aware to Active"
+          progress={50}
+          modules={modules}
+        />
 
         {/* Reinforce Key Concepts and Apply Your Knowledge Section */}
         <div className="mt-8 mb-6">
@@ -207,7 +66,7 @@ export default function DataTechPage() {
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                    Smart Refresh
+                    Memory Boost
                   </h3>
                   <p className="text-sm text-gray-600">
                     Strengthen memory with tailored review of weaker areas and essential concepts.
@@ -228,7 +87,7 @@ export default function DataTechPage() {
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                    Scenario Practice
+                    Common Scenarios
                   </h3>
                   <p className="text-sm text-gray-600">
                     Apply what you've learned in realistic, practical data & tech situations.
@@ -249,7 +108,7 @@ export default function DataTechPage() {
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                    Challenge Mode
+                    Speed Test
                   </h3>
                   <p className="text-sm text-gray-600">
                     Sharpen your knowledge under time pressure with concept-focused quizzes.
