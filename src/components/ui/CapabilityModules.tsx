@@ -124,7 +124,7 @@ export default function CapabilityModules({ title, progress, modules }: Capabili
   const secondRow = modules.slice(midPoint);
 
   return (
-    <div className="mt-8 mb-8">
+    <div className="mb-8">
       <h2 className="text-2xl font-bold text-gray-900 mb-6">{title}</h2>
       <div className="bg-white rounded-lg shadow-sm p-6">
         <div className="flex items-center gap-4">
