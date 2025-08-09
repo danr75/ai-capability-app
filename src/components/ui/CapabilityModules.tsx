@@ -7,6 +7,8 @@ interface Module {
   title: string;
   status: 'done' | 'ready' | 'locked';
   icon: 'check' | 'lightning' | 'lock';
+  // Optional accent to override status color for specific modules
+  variant?: 'default' | 'purple';
 }
 
 interface CapabilityModulesProps {
@@ -82,17 +84,18 @@ export default function CapabilityModules({ title, progress, modules }: Capabili
 
   const renderIcon = (moduleIndex: number) => {
     const status = getModuleStatus(moduleIndex);
+    const accent = modules[moduleIndex]?.variant ?? 'default';
     
     if (status === 'done') {
       return (
-        <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+        <svg className={`w-4 h-4 ${accent === 'purple' ? 'text-purple-800' : 'text-green-800'}`} fill="currentColor" viewBox="0 0 20 20">
           <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
         </svg>
       );
     }
     if (status === 'ready') {
       return (
-        <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+        <svg className="w-4 h-4 text-purple-800" fill="currentColor" viewBox="0 0 20 20">
           <path fillRule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.381z" clipRule="evenodd" />
         </svg>
       );
@@ -106,12 +109,16 @@ export default function CapabilityModules({ title, progress, modules }: Capabili
 
   const getModuleStyles = (moduleIndex: number) => {
     const status = getModuleStatus(moduleIndex);
+    const accent = modules[moduleIndex]?.variant ?? 'default';
+    if (accent === 'purple') {
+      return 'bg-purple-200 text-purple-800 border border-purple-300';
+    }
     
     switch (status) {
       case 'done':
-        return 'bg-green-500 text-white';
+        return 'bg-green-200 text-green-800 border border-green-300';
       case 'ready':
-        return 'bg-blue-500 text-white';
+        return 'bg-purple-200 text-purple-800 border border-purple-300';
       case 'locked':
       default:
         return 'bg-gray-300 text-gray-600';

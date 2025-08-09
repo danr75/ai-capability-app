@@ -48,7 +48,7 @@ export function AppHeader({ user }: AppHeaderProps) {
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full sticky top-0 z-50">
       {/* Top Header Bar */}
       <header className="bg-[#1a365d] text-white px-6 py-3 flex justify-between items-center">
         <div>
@@ -84,18 +84,19 @@ export function AppHeader({ user }: AppHeaderProps) {
       </header>
 
       {/* Navigation Menu */}
-      <nav className="bg-white shadow-sm">
+      <nav className="bg-white/95 backdrop-blur shadow-sm" role="navigation" aria-label="Primary">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-center">
-            <div className="flex justify-between w-full max-w-2xl">
+          <div className="flex justify-start">
+            <div className="flex gap-6 w-full overflow-x-auto whitespace-nowrap">
               {navItems.map((item) => (
               <Link
                 key={item.path}
                 href={item.path}
-                className={`py-4 px-1 border-b-2 font-medium text-sm ${
+                aria-current={pathname === item.path ? 'page' : undefined}
+                className={`inline-flex items-center py-3 px-2 border-b-2 font-medium text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-500 ${
                   pathname === item.path
-                    ? 'border-blue-500 text-gray-900'
-                    : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
+                    ? 'border-blue-600 text-blue-700'
+                    : 'border-transparent text-gray-600 hover:border-gray-300 hover:text-gray-800'
                 }`}
               >
                 {item.name}

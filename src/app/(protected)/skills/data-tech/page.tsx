@@ -8,7 +8,7 @@ export default function DataTechPage() {
     { id: '1', title: 'High Risk Use Cases', status: 'done' as const, icon: 'check' as const },
     { id: '2', title: 'What are Tokens', status: 'done' as const, icon: 'check' as const },
     { id: '3', title: 'Large Language Models Explained', status: 'done' as const, icon: 'check' as const },
-    { id: '4', title: 'Data Pipeline Architecture', status: 'done' as const, icon: 'check' as const },
+    { id: '4', title: 'Data Pipeline Architecture', status: 'done' as const, icon: 'check' as const, variant: 'purple' as const },
     { id: '5', title: 'Model Training Fundamentals', status: 'done' as const, icon: 'check' as const },
     { id: '6', title: 'What are AI agents', status: 'done' as const, icon: 'check' as const },
     { id: '7', title: 'AI Agent Risks', status: 'ready' as const, icon: 'lightning' as const },
