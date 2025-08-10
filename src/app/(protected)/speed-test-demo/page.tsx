@@ -160,7 +160,7 @@ export default function SpeedTestDemoPage() {
                 key={`speed-test-${retryCount}`}
                 questions={questions}
                 onComplete={handleComplete}
-                timePerQuestion={DEFAULT_TIME_PER_QUESTION}
+                timePerQuestion={30}
                 sessionId={`${capability}-${currentSet}-${retryCount}-${questions[0]?.id ?? 'q'}`}
               />
             )

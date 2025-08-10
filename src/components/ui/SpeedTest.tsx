@@ -183,7 +183,13 @@ export const SpeedTest: React.FC<SpeedTestProps> = ({
           </div>
           <div className="w-full bg-gray-200 rounded-full h-3">
             <div
-              className={`${timeLeft <= 5 ? 'bg-red-500' : 'bg-gradient-to-r from-blue-500 to-blue-600'} h-3 rounded-full transition-all duration-75 ease-linear`}
+              className={`${
+                timeLeft <= 5
+                  ? 'bg-red-500'
+                  : timeLeft <= 15
+                  ? 'bg-amber-500'
+                  : 'bg-gradient-to-r from-blue-500 to-blue-600'
+              } h-3 rounded-full transition-all duration-75 ease-linear`}
               style={{ width: `${progress}%` }}
             />
           </div>
