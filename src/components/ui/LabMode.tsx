@@ -53,6 +53,20 @@ export default function LabMode({ backLink = '#', skillArea = 'Data & Tech Capab
   const [checked, setChecked] = useState(false);
   const [finished, setFinished] = useState(false);
 
+  // Format objective to a clean sentence
+  const renderObjective = (text: string) => {
+    let t = (text || '').trim();
+    t = t.replace(/^(to\s+)/i, '');
+    // Lowercase the first alphabetical character for sentence case
+    const firstAlpha = t.match(/[A-Za-z]/);
+    if (firstAlpha && typeof firstAlpha.index === 'number') {
+      const i = firstAlpha.index;
+      t = t.slice(0, i) + t[i].toLowerCase() + t.slice(i + 1);
+    }
+    const sentence = `Your objective is to ${t}`;
+    return sentence.endsWith('.') ? sentence : sentence + '.';
+  };
+
   const isOptionSelected = (id: string) => selected.includes(id);
 
   // After checking, allow clicking any option to immediately show green/red feedback
@@ -120,7 +134,7 @@ export default function LabMode({ backLink = '#', skillArea = 'Data & Tech Capab
             {/* Lab Header */}
             <div className="rounded-lg p-4 bg-[#2158F4] text-white mb-6">
               <div className="text-2xl font-bold">Real-World Assessment</div>
-              <div className="text-base font-normal opacity-90">Objective: {QUESTION.title}</div>
+              <div className="text-base font-normal opacity-90">{renderObjective(QUESTION.title)}</div>
             </div>
           </div>
         </div>
@@ -128,8 +142,7 @@ export default function LabMode({ backLink = '#', skillArea = 'Data & Tech Capab
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
           <div className="max-w-4xl mx-auto bg-white rounded-lg shadow p-8 flex flex-col items-start text-left">
             <h2 className="text-lg font-semibold mb-2 block text-green-700">Congratulations!</h2>
-            <div className="mb-1 text-lg font-semibold">Objective:</div>
-            <div className="mb-4 text-base text-gray-900">xxxxx</div>
+            <div className="mb-4 text-base text-gray-900">{renderObjective(QUESTION.title)}</div>
             <div className="mb-1 text-lg font-semibold">Learning:</div>
             <div className="mb-6 text-base text-gray-900">{QUESTION.explanation}</div>
             <div className="flex gap-4">
@@ -156,7 +169,7 @@ export default function LabMode({ backLink = '#', skillArea = 'Data & Tech Capab
           {/* Lab Header */}
           <div className="rounded-lg p-4 bg-[#2158F4] text-white mb-6">
             <div className="text-2xl font-bold">Real-World Assessment</div>
-            <div className="text-base font-normal opacity-90">Objective: {QUESTION.title}</div>
+            <div className="text-base font-normal opacity-90">{renderObjective(QUESTION.title)}</div>
           </div>
         </div>
       </div>

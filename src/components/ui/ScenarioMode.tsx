@@ -27,6 +27,28 @@ export function ScenarioMode({ title, objective, steps, backHref, scenarioPath, 
   const [showTip, setShowTip] = useState(false);
   const [completedSteps, setCompletedSteps] = useState<number[]>([]);
 
+  // Format objective to read as a natural sentence
+  const renderObjective = (text: string) => {
+    let t = (text || '').trim();
+    // Avoid "to to" if the text already starts with "to"
+    t = t.replace(/^(to\s+)/i, '');
+    // Lowercase the first alphabetical character for sentence case
+    const firstAlpha = t.match(/[A-Za-z]/);
+    if (firstAlpha && typeof firstAlpha.index === 'number') {
+      const i = firstAlpha.index;
+      t = t.slice(0, i) + t[i].toLowerCase() + t.slice(i + 1);
+    }
+    const sentence = `Your objective is to ${t}`;
+    return sentence.endsWith('.') ? sentence : sentence + '.';
+  };
+
+  // Ensure summary sentences end with a period
+  const renderSummary = (text: string) => {
+    const t = (text || '').trim();
+    if (!t) return '';
+    return t.endsWith('.') ? t : t + '.';
+  };
+
   // If forceComplete is set, mark all steps as completed
   useEffect(() => {
     if (forceComplete) {
@@ -116,15 +138,14 @@ export function ScenarioMode({ title, objective, steps, backHref, scenarioPath, 
         </div>
         {/* COMPLETION UI */}
         {isComplete ? (
-          <div className="bg-[#F5F8FF] rounded-xl p-6 mb-6">
+          <div className="bg-blue-50 rounded-lg shadow-sm p-6 mb-6">
             <h2 className="text-2xl font-bold text-[#00C48C] mb-4">Scenario Complete!</h2>
             <div className="mb-4">
-              <div className="font-bold text-gray-800 mb-1">Objective:</div>
-              <div className="text-gray-700 text-base mb-4">{objective}</div>
+              <div className="text-gray-700 text-base mb-4">{renderObjective(objective)}</div>
               {steps.map((s, idx) => (
                 <div key={s.id} className="mb-3">
                   <div className="font-semibold text-gray-900">Step {idx + 1}: {s.stepLabel}</div>
-                  <div className="text-gray-700 text-sm ml-1">{s.question}</div>
+                  <div className="text-gray-700 text-sm">{renderSummary(s.tip)}</div>
                 </div>
               ))}
             </div>
@@ -158,7 +179,7 @@ export function ScenarioMode({ title, objective, steps, backHref, scenarioPath, 
             <div className="bg-blue-50 rounded-lg shadow-sm p-6 mb-6">
               {/* Objective text */}
               <div className="text-sm md:text-base text-gray-600 mb-3">
-                Objective: {objective}
+                {renderObjective(objective)}
               </div>
               {/* Question */}
               <div className="mb-4">
@@ -207,17 +228,17 @@ export function ScenarioMode({ title, objective, steps, backHref, scenarioPath, 
             </div>
             {/* Steps Complete (show only completed steps, always visible if at least one is done) */}
             {completedSteps.length > 0 && (
-              <div className="mt-6">
-                <div className="text-xs text-gray-500 mb-2">Steps complete:</div>
+              <div className="mt-6 bg-blue-50 rounded-lg shadow-sm p-4">
+                <div className="text-xs text-blue-700 font-semibold mb-2">Steps complete</div>
                 <div className="flex flex-col gap-1">
                   {steps
                     .filter((s) => completedSteps.includes(s.id))
-                    .map((s, i) => (
-                      <div key={s.id} className="flex items-center text-sm">
-                        <span className="inline-block w-5 h-5 text-center mr-2 rounded-full border font-bold bg-green-500 text-white border-green-500">
+                    .map((s) => (
+                      <div key={s.id} className="flex items-center text-sm text-blue-900">
+                        <span className="inline-block w-5 h-5 text-center mr-2 rounded-full border font-bold bg-blue-500 text-white border-blue-500">
                           ✓
                         </span>
-                        <span className="text-gray-800">{s.stepLabel}</span>
+                        <span>{s.stepLabel}</span>
                       </div>
                     ))}
                 </div>
