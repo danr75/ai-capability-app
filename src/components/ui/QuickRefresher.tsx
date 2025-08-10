@@ -209,9 +209,9 @@ export default function QuickRefresher({
         </div>
 
         {/* Main header */}
-        <div className="bg-primary text-white p-6 rounded-lg mb-6">
-          <div className="flex items-center gap-3">
-            <h1 className="text-2xl sm:text-3xl font-bold">Memory Boost</h1>
+        <div className="mb-6">
+          <div className="flex items-center justify-center">
+            <h1 className="text-2xl sm:text-3xl font-bold text-primary">Memory Boost</h1>
           </div>
         </div>
 
