@@ -202,25 +202,25 @@ export default function QuickRefresher({
         {/* Main header */}
         <div className="bg-primary text-white p-6 rounded-lg mb-6">
           <div className="flex items-center gap-3">
-            <h1 className="text-3xl font-bold">Memory Boost</h1>
+            <h1 className="text-2xl sm:text-3xl font-bold">Memory Boost</h1>
           </div>
         </div>
 
         {/* Progress navigation section */}
         <section className="mb-6">
-          <div className="bg-white rounded-lg shadow-sm px-6 py-3">
+          <div className="px-6 py-3">
             <div className="w-full flex items-center justify-center">
-              <div className="inline-flex items-center gap-4">
+              <div className="inline-flex items-center gap-4 bg-white/60 backdrop-blur-sm rounded-full ring-1 ring-black/5 px-3 py-1.5 shadow-sm">
                 {/* Left arrow */}
                 <button
                   type="button"
                   aria-label="Previous question"
                   aria-disabled={currentQuestionIndex === 0}
-                  className="inline-flex items-center justify-center p-2.5 sm:p-3 rounded-md text-primary hover:text-primary/80 disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-400"
+                  className="inline-flex items-center justify-center p-2 sm:p-2.5 rounded-md text-primary hover:text-primary/80 disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-400"
                   onClick={handlePrevQuestion}
                   disabled={currentQuestionIndex === 0}
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 sm:h-7 sm:w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                   </svg>
                 </button>
@@ -261,11 +261,11 @@ export default function QuickRefresher({
                   type="button"
                   aria-label="Next question"
                   aria-disabled={currentQuestionIndex >= maxQuestionReached}
-                  className="inline-flex items-center justify-center p-2.5 sm:p-3 rounded-md text-primary hover:text-primary/80 disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-400"
+                  className="inline-flex items-center justify-center p-2 sm:p-2.5 rounded-md text-primary hover:text-primary/80 disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-400"
                   onClick={handleNextQuestion}
                   disabled={currentQuestionIndex >= maxQuestionReached}
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 sm:h-7 sm:w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
                 </button>
@@ -280,12 +280,9 @@ export default function QuickRefresher({
           <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
             <div className="text-base text-gray-800">
               <div className="mb-2">
-                <span className="font-semibold">Module:</span> {currentQuestion.module || 'High Risk Use Cases'}
+                <span className="text-sm font-semibold text-gray-700">Module:</span> {currentQuestion.module || 'High Risk Use Cases'}
               </div>
-              <div className="mb-4">
-                <span className="font-semibold">Lesson:</span> {currentQuestion.lesson || 'Identifying High Risk AI Use Cases'}
-              </div>
-              <div className="text-gray-600">
+              <div className="text-sm md:text-base text-gray-600">
                 {currentQuestion.lessonContent || 'High risk AI use cases involve critical decisions affecting safety, privacy, or fairness. Identifying these requires evaluating potential harm, regulatory requirements, and societal impact before deployment.'}
               </div>
             </div>
@@ -293,7 +290,7 @@ export default function QuickRefresher({
 
           {/* Question card */}
           <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
-            <p className="text-lg text-gray-800 mb-6">
+            <p className="text-xl md:text-2xl text-gray-900 leading-relaxed mb-6">
               <span className="bg-[#B681FC] text-white px-3 py-1 rounded font-medium">
                 {selectedOption 
                   ? currentQuestion.options.find(option => option.id === selectedOption)?.text
@@ -306,7 +303,7 @@ export default function QuickRefresher({
             {currentQuestion.options.map((option, index) => (
               <div 
                 key={option.id}
-                className={`border rounded-lg p-3 flex items-center cursor-pointer transition-all flex-1 ${
+                className={`border rounded-lg p-4 flex items-center cursor-pointer transition-all flex-1 ${
                   selectedOption === option.id && isChecked && option.correct ? 'bg-[#DFF6EA] border-[#28C76F] text-[#28C76F] font-bold' : 
                   selectedOption === option.id && isChecked && !option.correct ? 'bg-[#FDEBEC] border-[#EA5455] text-[#EA5455] font-bold' :
                   selectedOption === option.id ? 'bg-blue-50 border-blue-600 text-blue-900' : 
@@ -328,7 +325,7 @@ export default function QuickRefresher({
                 } px-2 py-1 rounded-full mr-3 font-medium transition-colors`}>
                   {index + 1}
                 </span>
-                <span className="font-medium text-sm">{option.text}</span>
+                <span className="font-medium text-base">{option.text}</span>
               </div>
             ))}
           
@@ -336,7 +333,7 @@ export default function QuickRefresher({
             <button
               onClick={handleCheck}
               disabled={!selectedOption || answeredQuestions.includes(currentQuestionIndex)}
-              className={`bg-[#B681FC] text-white px-5 py-3 rounded-md font-medium transition-colors flex-none ${
+              className={`bg-[#B681FC] text-white px-5 py-3 rounded-md font-medium text-base transition-colors flex-none ${
                 !selectedOption || answeredQuestions.includes(currentQuestionIndex) ? 'opacity-50 cursor-not-allowed' : 'hover:bg-[#B681FC]/90 shadow-sm'
               }`}
               style={{ width: '100px' }}
