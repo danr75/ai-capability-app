@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { useSavedItems } from '@/app/contexts/SavedItemsContext';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 export type ScenarioStep = {
   id: number;
@@ -22,10 +22,30 @@ export type ScenarioModeProps = {
 };
 
 export function ScenarioMode({ title, objective, steps, backHref, scenarioPath, forceComplete }: ScenarioModeProps) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const nextParam = searchParams?.get('next') || '';
   const [current, setCurrent] = useState(0);
   const [selected, setSelected] = useState<string | null>(null);
   const [showTip, setShowTip] = useState(false);
   const [completedSteps, setCompletedSteps] = useState<number[]>([]);
+
+  // Derive a rotated step order based on the 'next' query param
+  const [shuffledSteps, setShuffledSteps] = useState<ScenarioStep[]>(steps);
+  useEffect(() => {
+    if (!steps || steps.length === 0) {
+      setShuffledSteps([]);
+      return;
+    }
+    const rotateBy = nextParam ? (parseInt(nextParam, 10) || 0) % steps.length : 0;
+    const rotated = rotateBy > 0 ? [...steps.slice(rotateBy), ...steps.slice(0, rotateBy)] : [...steps];
+    setShuffledSteps(rotated);
+    // reset progress on new scenario order
+    setCurrent(0);
+    setSelected(null);
+    setShowTip(false);
+    setCompletedSteps([]);
+  }, [steps, nextParam]);
 
   // Format objective to read as a natural sentence
   const renderObjective = (text: string) => {
@@ -52,11 +72,11 @@ export function ScenarioMode({ title, objective, steps, backHref, scenarioPath, 
   // If forceComplete is set, mark all steps as completed
   useEffect(() => {
     if (forceComplete) {
-      setCompletedSteps(steps.map(s => s.id));
+      setCompletedSteps(shuffledSteps.map(s => s.id));
     }
-  }, [forceComplete, steps]);
+  }, [forceComplete, shuffledSteps]);
 
-  const step = steps[current];
+  const step = shuffledSteps[current];
   const isCorrect = selected && step.options.find(o => o.id === selected)?.correct;
 
   // Keyboard selection support
@@ -90,7 +110,7 @@ export function ScenarioMode({ title, objective, steps, backHref, scenarioPath, 
         setCompletedSteps([...completedSteps, step.id]);
       }
       setTimeout(() => {
-        if (current < steps.length - 1) {
+        if (current < shuffledSteps.length - 1) {
           setCurrent(current + 1);
           setSelected(null);
           setShowTip(false);
@@ -100,7 +120,7 @@ export function ScenarioMode({ title, objective, steps, backHref, scenarioPath, 
   };
 
   // Completion logic: all steps complete
-  const isComplete = completedSteps.length === steps.length;
+  const isComplete = shuffledSteps.length > 0 && completedSteps.length === shuffledSteps.length;
 
   // Handler for 'Do Again' button
   const handleDoAgain = () => {
@@ -110,18 +130,11 @@ export function ScenarioMode({ title, objective, steps, backHref, scenarioPath, 
     setCompletedSteps([]);
   };
 
-  // Saved Items integration
-  const { addSavedItem, savedItems } = useSavedItems();
-  const isAlreadySaved = savedItems.some(item => item.path === scenarioPath && item.type === 'scenario');
-
-  // Handler for 'Save Item' button
-  const handleSaveProgress = () => {
-    if (isAlreadySaved || !isComplete) return;
-    addSavedItem({
-      title,
-      type: 'scenario',
-      path: scenarioPath
-    });
+  // Handler for 'Next' to launch a new scenario (navigate to same path with cache-busting query)
+  const handleNextScenario = () => {
+    const path = typeof window !== 'undefined' ? window.location.pathname : backHref;
+    const qs = `?next=${Date.now()}`;
+    router.push(`${path}${qs}`);
   };
 
   return (
@@ -142,7 +155,7 @@ export function ScenarioMode({ title, objective, steps, backHref, scenarioPath, 
             <h2 className="text-2xl font-bold text-[#00C48C] mb-4">Scenario Complete!</h2>
             <div className="mb-4">
               <div className="text-gray-700 text-base mb-4">{renderObjective(objective)}</div>
-              {steps.map((s, idx) => (
+              {shuffledSteps.map((s, idx) => (
                 <div key={s.id} className="mb-3">
                   <div className="font-semibold text-gray-900">Step {idx + 1}: {s.stepLabel}</div>
                   <div className="text-gray-700 text-sm">{renderSummary(s.tip)}</div>
@@ -150,22 +163,15 @@ export function ScenarioMode({ title, objective, steps, backHref, scenarioPath, 
               ))}
             </div>
             <div className="flex gap-3 mt-6">
-              {((isComplete && isAlreadySaved) || forceComplete) ? (
-                <button className="px-6 py-2 rounded font-semibold bg-green-200 text-green-700 cursor-default" disabled>
-                  Saved
-                </button>
-              ) : (
-                <button
-                  className={`px-6 py-2 rounded font-semibold bg-[#2158F4] text-white hover:bg-[#1741b3] transition-colors ${(!isComplete || isAlreadySaved) ? 'opacity-60 cursor-not-allowed' : ''}`}
-                  onClick={handleSaveProgress}
-                  disabled={!isComplete || isAlreadySaved}
-                  type="button"
-                >
-                  {isAlreadySaved ? 'Saved' : 'Save Item'}
-                </button>
-              )}
               <button
-                className={`px-6 py-2 rounded font-semibold bg-[#2158F4] text-white hover:bg-[#1741b3] transition-colors`}
+                className="px-6 py-2 rounded font-semibold bg-[#2158F4] text-white hover:bg-[#1741b3] transition-colors"
+                onClick={handleNextScenario}
+                type="button"
+              >
+                Next
+              </button>
+              <button
+                className="px-6 py-2 rounded font-semibold bg-[#2158F4] text-white hover:bg-[#1741b3] transition-colors"
                 onClick={handleDoAgain}
                 type="button"
               >
@@ -231,7 +237,7 @@ export function ScenarioMode({ title, objective, steps, backHref, scenarioPath, 
               <div className="mt-6 bg-blue-50 rounded-lg shadow-sm p-4">
                 <div className="text-xs text-blue-700 font-semibold mb-2">Steps complete</div>
                 <div className="flex flex-col gap-1">
-                  {steps
+                  {shuffledSteps
                     .filter((s) => completedSteps.includes(s.id))
                     .map((s) => (
                       <div key={s.id} className="flex items-center text-sm text-blue-900">
