@@ -40,10 +40,16 @@ export function ScenarioMode({ title, objective, steps, backHref, scenarioPath, 
   // Keyboard selection support
   React.useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (!selected && (e.key === '1' || e.key === '2')) {
+      if (e.key === '1' || e.key === '2') {
         const idx = parseInt(e.key, 10) - 1;
-        if (step.options[idx]) {
-          handleSelect(step.options[idx].id);
+        const opt = step.options[idx];
+        if (!opt) return;
+        // Mirror button disabled logic:
+        // disabled iff there is a selection AND the target option is incorrect AND it's not the currently selected one
+        const isOptionCorrect = !!opt.correct;
+        const isDisabled = !!selected && (!isOptionCorrect && selected !== opt.id);
+        if (!isDisabled) {
+          handleSelect(opt.id);
         }
       }
     };
@@ -97,17 +103,16 @@ export function ScenarioMode({ title, objective, steps, backHref, scenarioPath, 
   };
 
   return (
-    <div className="max-w-4xl mx-auto bg-white rounded-xl shadow p-6 mt-8">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-5 pb-10 mt-8">
         {/* Top bar */}
         <div className="flex items-center mb-4">
-          <Link href={backHref} className="text-blue-700 hover:underline mr-4 text-sm font-medium">← Back to {title}</Link>
+          <Link href={backHref} className="text-blue-700 hover:underline mr-4 text-sm font-medium">← {title}</Link>
         </div>
         {/* Scenario Mode Heading */}
-        <div className="bg-[#2158F4] rounded-xl p-6 mb-6">
-          <Link href="/learning-coach/saved-items" className="text-2xl font-bold text-white mb-1 hover:underline focus:underline">
-            Scenario: {title}
+        <div className="mb-6 text-center">
+          <Link href="/learning-coach/saved-items" className="text-2xl sm:text-3xl font-bold text-primary hover:underline focus:underline">
+            Scenario
           </Link>
-          <div className="text-white text-base font-medium opacity-90 mt-1">Objective: {objective}</div>
         </div>
         {/* COMPLETION UI */}
         {isComplete ? (
@@ -150,8 +155,11 @@ export function ScenarioMode({ title, objective, steps, backHref, scenarioPath, 
         ) : (
           <>
             {/* Objective, Step, and Options in Light Blue Container */}
-            <div className="bg-[#F5F8FF] rounded-xl p-6 mb-6 min-h-[200px]">
-
+            <div className="bg-blue-50 rounded-lg shadow-sm p-6 mb-6">
+              {/* Objective text */}
+              <div className="text-sm md:text-base text-gray-600 mb-3">
+                Objective: {objective}
+              </div>
               {/* Question */}
               <div className="mb-4">
                 <div className="text-lg text-gray-700 font-medium min-h-[48px] flex items-end">
@@ -166,15 +174,15 @@ export function ScenarioMode({ title, objective, steps, backHref, scenarioPath, 
                         key={opt.id}
                         onClick={() => handleSelect(opt.id)}
                         disabled={!!selected && (isOptionCorrect ? false : selected !== opt.id)}
-                        className={`flex-1 rounded border px-4 py-4 text-left font-medium transition-all flex items-center gap-3
+                        className={`flex-1 rounded-lg border px-4 py-4 text-left font-medium text-base transition-all flex items-center gap-3
                           ${isSelected && isOptionCorrect ? "border-green-500 bg-green-50" : ""}
                           ${isSelected && !isOptionCorrect ? "border-red-500 bg-red-50" : ""}
-                          ${!isSelected ? "border-gray-200 bg-white hover:bg-blue-50" : ""}
+                          ${!isSelected ? "border-blue-200 bg-white text-gray-800 hover:bg-blue-50 hover:border-blue-300 hover:text-blue-900 hover:shadow-sm" : ""}
                           ${selected && !isSelected ? "opacity-60" : ""}
                         `}
                       >
                         <span className={`inline-flex items-center justify-center w-7 h-7 rounded-full text-base font-bold mr-3
-                          ${isSelected ? (isOptionCorrect ? 'bg-green-500 text-white' : 'bg-red-500 text-white') : 'bg-gray-200 text-gray-700'}`}
+                          ${isSelected ? (isOptionCorrect ? 'bg-green-500 text-white' : 'bg-red-500 text-white') : 'bg-blue-100 text-blue-700'}`}
                         >
                           {idx + 1}
                         </span>

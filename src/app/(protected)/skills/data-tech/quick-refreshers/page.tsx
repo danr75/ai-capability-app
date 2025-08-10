@@ -67,6 +67,30 @@ export default function QuickRefreshersPage() {
       explanation: "Unsupervised learning discovers patterns without labeled examples."
     },
     {
+      id: 5,
+      text: "is a common metric used to evaluate classification models",
+      blank: "___________",
+      options: [
+        { id: "accuracy", text: "Accuracy", correct: true },
+        { id: "latency", text: "Latency", correct: false }
+      ],
+      explanation: "Accuracy measures the proportion of correct predictions among total predictions.",
+      module: "Evaluating Models",
+      lesson: "Classification Metrics"
+    },
+    {
+      id: 6,
+      text: "is a method for assessing model performance on unseen data",
+      blank: "___________",
+      options: [
+        { id: "traintest", text: "Train-test split", correct: true },
+        { id: "onehot", text: "One-hot encoding", correct: false }
+      ],
+      explanation: "A train-test split separates data into training and testing sets to evaluate generalization.",
+      module: "Evaluating Models",
+      lesson: "Validation Strategies"
+    },
+    {
       id: 7,
       text: "is an AI approach where agents learn through trial and error",
       blank: "___________",
