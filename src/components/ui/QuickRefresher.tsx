@@ -163,6 +163,26 @@ export default function QuickRefresher({
     }
   };
 
+  // Jump to a specific question index if allowed, preserving restore logic
+  const goToQuestion = (index: number) => {
+    if (index < 0 || index >= questions.length) return;
+    if (index > maxQuestionReached) return; // locked
+    setCurrentQuestionIndex(index);
+    setSelectedOption(null);
+    setIsChecked(false);
+    setIsCorrect(false);
+
+    // If this question was previously answered, show the answer immediately
+    if (answeredQuestions.includes(index)) {
+      const correctOption = questions[index].options.find(opt => opt.correct);
+      if (correctOption) {
+        setSelectedOption(correctOption.id);
+        setIsChecked(true);
+        setIsCorrect(true);
+      }
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-5 pb-10">
@@ -187,47 +207,70 @@ export default function QuickRefresher({
         </div>
 
         {/* Progress navigation section */}
-        <section className="bg-blue-50 rounded-lg shadow-sm p-6 mb-6">
-          <div className="flex items-center justify-between">
-            {/* Left arrow */}
-            <button 
-              className={`text-primary hover:text-primary/80 transition-colors ${
-                currentQuestionIndex === 0 ? 'opacity-50 cursor-not-allowed' : ''
-              }`}
-              onClick={handlePrevQuestion}
-              disabled={currentQuestionIndex === 0}
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
-            </button>
-            
-            {/* Progress dots */}
-            <div className="flex-1 flex justify-center mx-4">
-              <div className="flex gap-2">
-                {progressDots.map((_, index) => (
-                  <div 
-                    key={index} 
-                    className={`w-8 h-2 rounded-full ${
-                      index <= currentQuestionIndex ? 'bg-[#B681FC]' : 'bg-gray-300'
-                    }`}
-                  />
-                ))}
+        <section className="mb-6">
+          <div className="bg-white rounded-lg shadow-sm px-6 py-3">
+            <div className="w-full flex items-center justify-center">
+              <div className="inline-flex items-center gap-4">
+                {/* Left arrow */}
+                <button
+                  type="button"
+                  aria-label="Previous question"
+                  aria-disabled={currentQuestionIndex === 0}
+                  className="inline-flex items-center justify-center p-2.5 sm:p-3 rounded-md text-primary hover:text-primary/80 disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-400"
+                  onClick={handlePrevQuestion}
+                  disabled={currentQuestionIndex === 0}
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                  </svg>
+                </button>
+
+                {/* Progress dots */}
+                <div className="flex items-center gap-2 sm:gap-3">
+                  {progressDots.map((_, index) => {
+                    const isCurrent = index === currentQuestionIndex;
+                    const isAnswered = answeredQuestions.includes(index);
+                    const isReachable = index <= maxQuestionReached;
+                    const base = 'rounded-full border transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-400';
+                    const size = isCurrent ? 'h-5 sm:h-6 w-20 sm:w-24' : 'h-5 sm:h-6 w-12 sm:w-14';
+                    const colors = isCurrent
+                      ? 'bg-purple-200 border-purple-300'
+                      : isAnswered
+                        ? 'bg-green-200 border-green-300'
+                        : 'bg-gray-200 border-gray-300';
+                    const interactive = isReachable ? 'hover:border-gray-400 cursor-pointer' : 'opacity-60 cursor-not-allowed';
+
+                    return (
+                      <button
+                        key={index}
+                        type="button"
+                        role="button"
+                        aria-label={`Go to question ${index + 1}`}
+                        aria-current={isCurrent ? 'step' : undefined}
+                        aria-disabled={!isReachable}
+                        onClick={() => isReachable && goToQuestion(index)}
+                        disabled={!isReachable}
+                        className={`${base} ${size} ${colors} ${interactive}`}
+                      />
+                    );
+                  })}
+                </div>
+
+                {/* Right arrow */}
+                <button
+                  type="button"
+                  aria-label="Next question"
+                  aria-disabled={currentQuestionIndex >= maxQuestionReached}
+                  className="inline-flex items-center justify-center p-2.5 sm:p-3 rounded-md text-primary hover:text-primary/80 disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-400"
+                  onClick={handleNextQuestion}
+                  disabled={currentQuestionIndex >= maxQuestionReached}
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
               </div>
             </div>
-            
-            {/* Right arrow */}
-            <button 
-              className={`text-primary hover:text-primary/80 transition-colors ${
-                currentQuestionIndex >= maxQuestionReached ? 'opacity-50 cursor-not-allowed' : ''
-              }`}
-              onClick={handleNextQuestion}
-              disabled={currentQuestionIndex >= maxQuestionReached}
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </button>
           </div>
         </section>
 
@@ -266,8 +309,8 @@ export default function QuickRefresher({
                 className={`border rounded-lg p-3 flex items-center cursor-pointer transition-all flex-1 ${
                   selectedOption === option.id && isChecked && option.correct ? 'bg-[#DFF6EA] border-[#28C76F] text-[#28C76F] font-bold' : 
                   selectedOption === option.id && isChecked && !option.correct ? 'bg-[#FDEBEC] border-[#EA5455] text-[#EA5455] font-bold' :
-                  selectedOption === option.id ? 'bg-[#4F8BFF] border-[#4F8BFF]/70 text-white' : 
-                  'bg-white border-[#DFE3E8] text-[#4B4B4B] hover:border-[#CED6E0] hover:shadow-sm'
+                  selectedOption === option.id ? 'bg-blue-50 border-blue-600 text-blue-900' : 
+                  'bg-white border-blue-200 text-gray-800 hover:bg-blue-50 hover:border-blue-300 hover:text-blue-900 hover:shadow-sm'
                 }`}
                 onClick={() => handleOptionSelect(option.id)}
                 onKeyDown={(e) => {
@@ -280,8 +323,8 @@ export default function QuickRefresher({
                 <span className={`${
                   selectedOption === option.id && isChecked && option.correct ? 'bg-[#28C76F] text-white' :
                   selectedOption === option.id && isChecked && !option.correct ? 'bg-[#EA5455] text-white' :
-                  selectedOption === option.id ? 'bg-white text-[#4F8BFF]' : 
-                  'bg-[#DFE3E8] text-[#6E6E6E]'
+                  selectedOption === option.id ? 'bg-white text-blue-700' : 
+                  'bg-blue-100 text-blue-700'
                 } px-2 py-1 rounded-full mr-3 font-medium transition-colors`}>
                   {index + 1}
                 </span>
