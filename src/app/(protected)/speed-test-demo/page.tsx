@@ -96,35 +96,49 @@ export default function SpeedTestDemoPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header navigation */}
-      <div className="max-w-7xl mx-auto pt-6 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-5 pb-2 mt-8">
           <Link 
             href={`/skills/${capability}`}
-            className="inline-flex items-center text-primary hover:text-primary/80 font-medium mb-6 transition-colors"
+            className="inline-flex items-center text-blue-700 hover:underline font-medium mb-4 transition-colors"
           >
             <ArrowLeft className="h-5 w-5 mr-1" />
-            Back to {title}
+            {title}
           </Link>
-          
-          {/* Header with blue background */}
-          <div className="bg-[#2158F4] text-white rounded-lg p-4 sm:p-6 mb-6">
-            <h1 className="text-2xl sm:text-3xl font-bold">Speed Test: {title}</h1>
-            <p className="mt-1">Test your knowledge under time pressure</p>
+          {/* Heading centered, no blue background, mirroring Scenario */}
+          <div className="mb-6 text-center">
+            <Link href={`/skills/${capability}`} className="text-2xl sm:text-3xl font-bold text-primary hover:underline focus:underline">
+              Speed Test
+            </Link>
           </div>
-        </div>
       </div>
 
       {/* Main content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
-        <div className="max-w-4xl mx-auto">
           {questions.length > 0 ? (
-            <div className="bg-white rounded-lg shadow-md p-6">
-              {isCompleted ? (
-                <div className="text-center">
-                  <h2 className="text-3xl font-bold mb-4 text-gray-900">Set {currentSet + 1} Complete!</h2>
-                  <p className="text-xl mb-6 text-gray-800">
-                    You scored {score} out of {questions.length} correct.
-                  </p>
+            isCompleted ? (
+              <div className="bg-blue-50 rounded-lg shadow-sm p-6">
+                <div className="bg-white rounded-lg shadow-sm p-6 text-center">
+                  {(() => {
+                    const ratio = questions.length > 0 ? score / questions.length : 0;
+                    let title = "";
+                    let color = "text-gray-900";
+                    if (ratio < 0.4) {
+                      title = "Oh no – Study more!";
+                      color = "text-red-600";
+                    } else if (ratio < 0.8) {
+                      title = "Not bad – Keep going!";
+                      color = "text-amber-600";
+                    } else {
+                      title = "Legend – Smashed it!";
+                      color = "text-green-600";
+                    }
+                    return (
+                      <>
+                        <h2 className={`text-3xl font-bold mb-4 ${color}`}>{title}</h2>
+                        <p className="text-xl mb-6 text-gray-800">You scored {score} out of {questions.length} correct.</p>
+                      </>
+                    );
+                  })()}
                   <div className="flex flex-col sm:flex-row justify-center gap-4">
                     <button
                       onClick={handleRetry}
@@ -140,15 +154,16 @@ export default function SpeedTestDemoPage() {
                     </button>
                   </div>
                 </div>
-              ) : (
-                <SpeedTest
-                  key={`speed-test-${retryCount}`}
-                  questions={questions}
-                  onComplete={handleComplete}
-                  timePerQuestion={DEFAULT_TIME_PER_QUESTION}
-                />
-              )}
-            </div>
+              </div>
+            ) : (
+              <SpeedTest
+                key={`speed-test-${retryCount}`}
+                questions={questions}
+                onComplete={handleComplete}
+                timePerQuestion={DEFAULT_TIME_PER_QUESTION}
+                sessionId={`${capability}-${currentSet}-${retryCount}-${questions[0]?.id ?? 'q'}`}
+              />
+            )
           ) : (
             <div className="bg-white rounded-lg shadow-md p-6 text-center">
               <p className="text-gray-600">No questions available for this capability.</p>
@@ -160,7 +175,6 @@ export default function SpeedTestDemoPage() {
               </Link>
             </div>
           )}
-        </div>
       </div>
     </div>
   );
