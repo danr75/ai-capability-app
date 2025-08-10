@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
+import Link from 'next/link';
 
 interface Module {
   id: string;
@@ -9,6 +10,7 @@ interface Module {
   icon: 'check' | 'lightning' | 'lock';
   // Optional accent to override status color for specific modules
   variant?: 'default' | 'purple';
+  href?: string; // optional link to launch module-specific flow
 }
 
 interface CapabilityModulesProps {
@@ -165,23 +167,35 @@ export default function CapabilityModules({ title, progress, modules }: Capabili
             <div className="space-y-4">
               {/* First row */}
               <div className="flex gap-3 min-w-max">
-                {firstRow.map((module, index) => (
-                  <div
-                    key={module.id}
-                    data-module-index={index}
-                    className={`px-4 py-2 rounded-full text-sm font-medium flex items-center gap-2 whitespace-nowrap ${getModuleStyles(index)}`}
-                  >
-                    {renderIcon(index)}
-                    {module.title}
-                  </div>
-                ))}
+                {firstRow.map((module, index) => {
+                  const status = getModuleStatus(index);
+                  const chip = (
+                    <div
+                      key={module.id}
+                      data-module-index={index}
+                      className={`px-4 py-2 rounded-full text-sm font-medium flex items-center gap-2 whitespace-nowrap ${getModuleStyles(index)}`}
+                    >
+                      {renderIcon(index)}
+                      {module.title}
+                    </div>
+                  );
+                  if (status === 'ready' && module.href) {
+                    return (
+                      <Link key={module.id} href={module.href} className="focus:outline-none">
+                        {chip}
+                      </Link>
+                    );
+                  }
+                  return chip;
+                })}
               </div>
 
               {/* Second row */}
               <div className="flex gap-3 min-w-max">
                 {secondRow.map((module, index) => {
                   const moduleIndex = midPoint + index; // Adjust index for second row
-                  return (
+                  const status = getModuleStatus(moduleIndex);
+                  const chip = (
                     <div
                       key={module.id}
                       data-module-index={moduleIndex}
@@ -191,6 +205,14 @@ export default function CapabilityModules({ title, progress, modules }: Capabili
                       {module.title}
                     </div>
                   );
+                  if (status === 'ready' && module.href) {
+                    return (
+                      <Link key={module.id} href={module.href} className="focus:outline-none">
+                        {chip}
+                      </Link>
+                    );
+                  }
+                  return chip;
                 })}
               </div>
             </div>
