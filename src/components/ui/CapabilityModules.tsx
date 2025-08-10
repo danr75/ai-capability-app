@@ -90,7 +90,7 @@ export default function CapabilityModules({ title, progress, modules }: Capabili
     
     if (status === 'done') {
       return (
-        <svg className={`w-4 h-4 ${accent === 'purple' ? 'text-purple-800' : 'text-green-800'}`} fill="currentColor" viewBox="0 0 20 20">
+        <svg className="w-3 h-3 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
           <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
         </svg>
       );
@@ -112,13 +112,14 @@ export default function CapabilityModules({ title, progress, modules }: Capabili
   const getModuleStyles = (moduleIndex: number) => {
     const status = getModuleStatus(moduleIndex);
     const accent = modules[moduleIndex]?.variant ?? 'default';
-    if (accent === 'purple') {
+    // Apply purple accent only for the current "ready" module
+    if (accent === 'purple' && status === 'ready') {
       return 'bg-purple-200 text-purple-800 border border-purple-300';
     }
     
     switch (status) {
       case 'done':
-        return 'bg-green-200 text-green-800 border border-green-300';
+        return 'bg-white text-gray-600 border border-green-600 opacity-85 cursor-default';
       case 'ready':
         return 'bg-purple-200 text-purple-800 border border-purple-300';
       case 'locked':
