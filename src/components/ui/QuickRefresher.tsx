@@ -49,21 +49,30 @@ export default function QuickRefresher({
   // Handle keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      // Don't allow changing answers for already answered questions
-      if (answeredQuestions.includes(currentQuestionIndex)) {
+      // Arrow navigation should always work (subject to button enable rules)
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        handlePrevQuestion();
         return;
       }
-      
-      // Number keys 1-4 for selecting options
+      if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        handleNextQuestion();
+        return;
+      }
+
+      // Number keys 1-4 for selecting options (block if already answered)
       if (e.key >= '1' && e.key <= '4') {
-        const optionIndex = parseInt(e.key) - 1;
-        if (currentQuestion.options[optionIndex]) {
-          setSelectedOption(currentQuestion.options[optionIndex].id);
-          setIsChecked(false);
+        if (!answeredQuestions.includes(currentQuestionIndex)) {
+          const optionIndex = parseInt(e.key) - 1;
+          if (currentQuestion.options[optionIndex]) {
+            setSelectedOption(currentQuestion.options[optionIndex].id);
+            setIsChecked(false);
+          }
         }
-      } 
-      // Space or Enter to check answer
-      else if ((e.key === ' ' || e.key === 'Enter') && selectedOption) {
+      }
+      // Space or Enter to check answer (only when not already answered)
+      else if ((e.key === ' ' || e.key === 'Enter') && selectedOption && !answeredQuestions.includes(currentQuestionIndex)) {
         handleCheck();
       }
     };
@@ -279,8 +288,8 @@ export default function QuickRefresher({
           {/* Module and Lesson info */}
           <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
             <div className="text-base text-gray-800">
-              <div className="mb-2">
-                <span className="text-sm font-semibold text-gray-700">Module:</span> {currentQuestion.module || 'High Risk Use Cases'}
+              <div className="mb-2 text-lg font-semibold text-gray-800">
+                {currentQuestion.module || 'High Risk Use Cases'}
               </div>
               <div className="text-sm md:text-base text-gray-600">
                 {currentQuestion.lessonContent || 'High risk AI use cases involve critical decisions affecting safety, privacy, or fairness. Identifying these requires evaluating potential harm, regulatory requirements, and societal impact before deployment.'}
@@ -290,7 +299,7 @@ export default function QuickRefresher({
 
           {/* Question card */}
           <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
-            <p className="text-xl md:text-2xl text-gray-900 leading-relaxed mb-6">
+            <p className="text-lg md:text-xl text-gray-900 leading-relaxed mb-6">
               <span className="bg-[#B681FC] text-white px-3 py-1 rounded font-medium">
                 {selectedOption 
                   ? currentQuestion.options.find(option => option.id === selectedOption)?.text
