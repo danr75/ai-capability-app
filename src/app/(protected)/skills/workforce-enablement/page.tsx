@@ -34,10 +34,10 @@ export default function WorkforceEnablementPage() {
         </div>
 
         {/* Main header */}
-        <div className="bg-primary text-white p-6 rounded-lg mb-6">
+        <div className="mb-6">
           <div className="flex items-center gap-3">
-            <h1 className="text-3xl font-bold">Workforce Enablement Capable</h1>
-            <span className="bg-blue-100 text-blue-700 text-xs font-semibold px-3 py-1 rounded-full">● On Track</span>
+            <h1 className="text-3xl font-bold text-primary">Workforce Enablement Capable</h1>
+            <span className="bg-blue-100 text-blue-700 text-[11px] font-semibold px-2.5 py-0.5 rounded-full">● On Track</span>
           </div>
         </div>
 
@@ -53,8 +53,8 @@ export default function WorkforceEnablementPage() {
 
         {/* Reinforce Key Concepts and Apply Your Knowledge Section */}
         <section className="bg-blue-50 rounded-lg shadow-sm p-6">
-          <div className="mb-6">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Reinforce Key Concepts and Apply Your Knowledge</h2>
+          <div className="mb-4">
+            <h2 className="text-xl md:text-2xl font-semibold text-gray-900 mb-4">Reinforce Key Concepts and Apply Your Knowledge</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Quick Refreshers */}
