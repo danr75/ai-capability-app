@@ -6,6 +6,7 @@ import { getQuestionsForCapability, SpeedTestQuestion, DEFAULT_TIME_PER_QUESTION
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import { useSavedItems } from '@/app/contexts/SavedItemsContext';
 
 const CAPABILITY_TITLES: Record<string, string> = {
   'data-tech': 'Data & Tech Capable',
@@ -27,6 +28,8 @@ export default function SpeedTestDemoPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [retryCount, setRetryCount] = useState(0);
   const [currentSet, setCurrentSet] = useState(0);
+  const { addSavedItem, savedItems } = useSavedItems();
+  const [isSaved, setIsSaved] = useState(false);
 
   // Load questions for the specified capability
   useEffect(() => {
@@ -81,6 +84,18 @@ export default function SpeedTestDemoPage() {
   };
 
   const title = CAPABILITY_TITLES[capability] || CAPABILITY_TITLES['default'];
+  const savePath = `/speed-test-demo?capability=${capability}`;
+  const isAlreadySaved = savedItems?.some((i) => i.path === savePath) ?? false;
+  const handleSave = () => {
+    if (isAlreadySaved) return;
+    addSavedItem({
+      title: `${title} – Speed Test`,
+      type: 'speed-test',
+      path: savePath,
+    });
+    setIsSaved(true);
+    setTimeout(() => setIsSaved(false), 1500);
+  };
 
   if (isLoading) {
     return (
@@ -151,6 +166,19 @@ export default function SpeedTestDemoPage() {
                       className="px-6 py-3 bg-[#2158F4] text-white rounded-md hover:bg-[#2158F4]/90 transition-colors font-medium"
                     >
                       Next
+                    </button>
+                    <button
+                      onClick={handleSave}
+                      disabled={isSaved || isAlreadySaved}
+                      className={`inline-flex items-center gap-2 border border-primary text-primary bg-white hover:bg-primary/5 px-6 py-3 rounded-md font-medium transition-colors ${
+                        isSaved || isAlreadySaved ? 'opacity-60 cursor-not-allowed' : ''
+                      }`}
+                      aria-label={isAlreadySaved ? 'Already saved' : 'Save this speed test'}
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M5 3a2 2 0 00-2 2v12l7-3 7 3V5a2 2 0 00-2-2H5z" />
+                      </svg>
+                      {isAlreadySaved ? 'Saved' : isSaved ? 'Saved!' : 'Save'}
                     </button>
                   </div>
                 </div>
