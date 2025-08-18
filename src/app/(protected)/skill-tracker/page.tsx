@@ -1,8 +1,61 @@
 "use client";
 
 import Link from 'next/link';
+import React, { useEffect, useRef, useState } from 'react';
 
 export default function SkillTrackerPage() {
+  // Draggable target state for the top progress bar
+  const [targetPercent, setTargetPercent] = useState<number>(88); // initial ~right: 12%
+  const [dragging, setDragging] = useState<boolean>(false);
+  const progressRef = useRef<HTMLDivElement | null>(null);
+
+  // Convert clientX to percent within the progress container
+  const computePercentFromClientX = (clientX: number) => {
+    const el = progressRef.current;
+    if (!el) return targetPercent;
+    const rect = el.getBoundingClientRect();
+    const x = Math.min(Math.max(clientX - rect.left, 0), rect.width);
+    const pct = (x / rect.width) * 100;
+    return Math.max(0, Math.min(100, pct));
+  };
+
+  useEffect(() => {
+    if (!dragging) return;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      setTargetPercent(computePercentFromClientX(e.clientX));
+    };
+    const handleTouchMove = (e: TouchEvent) => {
+      if (e.touches && e.touches[0]) {
+        setTargetPercent(computePercentFromClientX(e.touches[0].clientX));
+      }
+    };
+    const stopDrag = () => setDragging(false);
+
+    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('touchmove', handleTouchMove, { passive: true });
+    window.addEventListener('mouseup', stopDrag);
+    window.addEventListener('touchend', stopDrag);
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('touchmove', handleTouchMove as any);
+      window.removeEventListener('mouseup', stopDrag);
+      window.removeEventListener('touchend', stopDrag);
+    };
+  }, [dragging]);
+
+  const startDragMouse = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setDragging(true);
+  };
+  const startDragTouch = (e: React.TouchEvent) => {
+    setDragging(true);
+    if (e.touches && e.touches[0]) {
+      setTargetPercent(computePercentFromClientX(e.touches[0].clientX));
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -14,24 +67,28 @@ export default function SkillTrackerPage() {
           </div>
           
           <div className="bg-white rounded-lg shadow-sm p-6">
-            <div className="relative mb-1">
+            <div ref={progressRef} className="relative mb-1">
               {/* Progress bar background */}
               <div className="h-4 bg-gray-200 rounded-full"></div>
               
               {/* Actual progress */}
-              <div className="absolute top-0 left-0 h-4 bg-primary rounded-full flex items-center justify-end pr-2 text-white text-xs font-medium" style={{ width: '33%' }}>
-                <span>33%</span>
+              <div className="absolute top-0 left-0 h-4 bg-primary rounded-full flex items-center justify-end pr-2 text-white text-xs font-medium" style={{ width: `${33}%` }}>
+                <span>{`${33}%`}</span>
               </div>
               
               {/* Target marker - positioned above the progress bar */}
-              <div className="absolute -top-12 right-0" style={{ right: '12%' }}>
-                <div className="relative flex flex-col items-center">
-                  <div className="bg-purple-200 text-purple-800 text-xs font-medium px-3 py-1 rounded-full flex items-center">
-                    Target
-                    <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </div>
+              <div className="absolute -top-12" style={{ left: `${targetPercent}%` }}>
+                <div
+                  className="relative -translate-x-1/2 flex flex-col items-center select-none cursor-pointer"
+                  onMouseDown={startDragMouse}
+                  onTouchStart={startDragTouch}
+                  role="slider"
+                  aria-valuemin={0}
+                  aria-valuemax={100}
+                  aria-valuenow={Math.round(targetPercent)}
+                  aria-label="Target"
+                >
+                  <div className="bg-purple-200 text-purple-800 text-xs font-medium px-3 py-1 rounded-full">Target</div>
                   <div className="h-4 w-0.5 bg-purple-600 my-1"></div>
                   <div className="w-4 h-4 rounded-full bg-purple-600"></div>
                 </div>
