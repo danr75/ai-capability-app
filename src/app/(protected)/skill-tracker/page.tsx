@@ -19,8 +19,8 @@ export default function SkillTrackerPage() {
               <div className="h-4 bg-gray-200 rounded-full"></div>
               
               {/* Actual progress */}
-              <div className="absolute top-0 left-0 h-4 bg-primary rounded-l-full" style={{ width: '33%' }}>
-                <span className="absolute -top-6 right-0 text-xs font-medium text-primary">33%</span>
+              <div className="absolute top-0 left-0 h-4 bg-primary rounded-full flex items-center justify-end pr-2 text-white text-xs font-medium" style={{ width: '33%' }}>
+                <span>33%</span>
               </div>
               
               {/* Target marker - positioned above the progress bar */}
@@ -112,8 +112,8 @@ export default function SkillTrackerPage() {
                 </div>
                 <div className="relative">
                   <div className="h-4 bg-gray-200 rounded-full"></div>
-                  <div className="absolute top-0 left-0 h-4 bg-primary rounded-l-full" style={{ width: '85%' }}>
-                    <span className="absolute right-0 -top-6 text-xs font-medium text-primary">85%</span>
+                  <div className="absolute top-0 left-0 h-4 bg-primary rounded-full flex items-center justify-end pr-2 text-white text-xs font-medium" style={{ width: '85%' }}>
+                    <span>85%</span>
                   </div>
                 </div>
                 <div className="flex justify-between mt-1 text-xs text-gray-500">
@@ -135,8 +135,8 @@ export default function SkillTrackerPage() {
                 </div>
                 <div className="relative">
                 <div className="h-4 bg-gray-200 rounded-full"></div>
-                <div className="absolute top-0 left-0 h-4 bg-primary rounded-l-full" style={{ width: '60%' }}>
-                  <span className="absolute right-0 -top-6 text-xs font-medium text-primary">60%</span>
+                <div className="absolute top-0 left-0 h-4 bg-primary rounded-full flex items-center justify-end pr-2 text-white text-xs font-medium" style={{ width: '60%' }}>
+                  <span>60%</span>
                 </div>
               </div>
                 <div className="flex justify-between mt-1 text-xs text-gray-500">
@@ -158,8 +158,8 @@ export default function SkillTrackerPage() {
                 </div>
                 <div className="relative">
                   <div className="h-4 bg-gray-200 rounded-full"></div>
-                  <div className="absolute top-0 left-0 h-4 bg-primary rounded-l-full" style={{ width: '30%' }}>
-                    <span className="absolute right-0 -top-6 text-xs font-medium text-primary">30%</span>
+                  <div className="absolute top-0 left-0 h-4 bg-primary rounded-full flex items-center justify-end pr-2 text-white text-xs font-medium" style={{ width: '30%' }}>
+                    <span>30%</span>
                   </div>
                 </div>
                 <div className="flex justify-between mt-1 text-xs text-gray-500">
@@ -181,8 +181,8 @@ export default function SkillTrackerPage() {
                 </div>
                 <div className="relative">
                   <div className="h-4 bg-gray-200 rounded-full"></div>
-                  <div className="absolute top-0 left-0 h-4 bg-primary rounded-l-full" style={{ width: '63%' }}>
-                    <span className="absolute right-0 -top-6 text-xs font-medium text-primary">63%</span>
+                  <div className="absolute top-0 left-0 h-4 bg-primary rounded-full flex items-center justify-end pr-2 text-white text-xs font-medium" style={{ width: '63%' }}>
+                    <span>63%</span>
                   </div>
                 </div>
                 <div className="flex justify-between mt-1 text-xs text-gray-500">
@@ -204,8 +204,8 @@ export default function SkillTrackerPage() {
                 </div>
                 <div className="relative">
                   <div className="h-4 bg-gray-200 rounded-full"></div>
-                  <div className="absolute top-0 left-0 h-4 bg-primary rounded-l-full" style={{ width: '50%' }}>
-                    <span className="absolute right-0 -top-6 text-xs font-medium text-primary">50%</span>
+                  <div className="absolute top-0 left-0 h-4 bg-primary rounded-full flex items-center justify-end pr-2 text-white text-xs font-medium" style={{ width: '50%' }}>
+                    <span>50%</span>
                   </div>
                 </div>
                 <div className="flex justify-between mt-1 text-xs text-gray-500">
@@ -227,8 +227,8 @@ export default function SkillTrackerPage() {
                 </div>
                 <div className="relative">
                   <div className="h-4 bg-gray-200 rounded-full"></div>
-                  <div className="absolute top-0 left-0 h-4 bg-primary rounded-l-full" style={{ width: '45%' }}>
-                    <span className="absolute right-0 -top-6 text-xs font-medium text-primary">45%</span>
+                  <div className="absolute top-0 left-0 h-4 bg-primary rounded-full flex items-center justify-end pr-2 text-white text-xs font-medium" style={{ width: '45%' }}>
+                    <span>45%</span>
                   </div>
                 </div>
                 <div className="flex justify-between mt-1 text-xs text-gray-500">
